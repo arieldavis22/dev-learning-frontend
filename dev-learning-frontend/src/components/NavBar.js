@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 class NavBar extends Component {
 
     render() { 
-        console.log("Navbar", this.props.currentUser)
+        // console.log("Navbar", this.props.currentUser)
         return (  
             <div>
                 <NavLink to="/" exact>

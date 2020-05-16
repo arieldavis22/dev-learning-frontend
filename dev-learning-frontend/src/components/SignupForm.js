@@ -5,7 +5,8 @@ class SignupForm extends Component {
         first_name: '',
         last_name: '',
         email: '',
-        password: ''
+        password: '',
+        role: null,
     }
 
     handleOnChange = event => {
@@ -14,87 +15,37 @@ class SignupForm extends Component {
         })
     }
 
-    handleOnSubmitTeacher = event => {
+    handleOnSubmit = event => {
         event.preventDefault()
-        fetch("http://localhost:3000/tsignup", {
+        fetch("http://localhost:3000/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            credentials: 'include',
+            credentials: "include",
             body: JSON.stringify(this.state)
         })
-        .then(r => {
-            if(r.ok) {
-                return r.json()
-            } else{
-                throw r
-            }
-        })
+        .then(r => r.json())
         .then(data => {
-            console.log("New User Teacher is:")
-            this.props.setUser(this.state)
-            this.setState({
-                first_name: '',
-                last_name: '',
-                email: '',
-                password: ''
-            })
+            console.log("SIGN UP:",data.data.attributes)
+            this.props.setUser(data.data.attributes)
         })
-        .catch(error => console.log(error))
-    }
-
-    handleOnSubmitStudent = event => {
-        event.preventDefault()
-        fetch("http://localhost:3000/ssignup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: 'include',
-            body: JSON.stringify(this.state)
-        })
-        .then(r => {
-            if(r.ok) {
-                return r.json()
-            } else{
-                throw r
-            }
-        })
-        .then(data => {
-            console.log("New User Student is:")
-            this.props.setUser(this.state)
-            this.setState({
-                first_name: '',
-                last_name: '',
-                email: '',
-                password: ''
-            })
-        })
-        .catch(error => console.log(error))
     }
     
     render() { 
-        console.log(this.state)
         return (  
             <div>
-                Signup Teacher
-                <form onSubmit={this.handleOnSubmitTeacher}>
+                Signup
+                <form onSubmit={this.handleOnSubmit}>
                     <input type="text" name="first_name" placeholder="First Name" onChange={this.handleOnChange} /> <br/>
                     <input type="text" name="last_name" placeholder="Last Name" onChange={this.handleOnChange} /> <br/>
                     <input type="text" name="email" placeholder="Email" onChange={this.handleOnChange} /> <br/>
                     <input type="text" name="password" placeholder="Password" onChange={this.handleOnChange} /> <br/>
                     <input type="text" placeholder="Password Confirm" /> <br/>
-                    <input type="submit" />
-                </form>
-                <br/>
-                Signup Student
-                <form onSubmit={this.handleOnSubmitStudent}>
-                    <input type="text" name="first_name" placeholder="First Name" onChange={this.handleOnChange} /> <br/>
-                    <input type="text" name="last_name" placeholder="Last Name" onChange={this.handleOnChange} /> <br/>
-                    <input type="text" name="email" placeholder="Email" onChange={this.handleOnChange} /> <br/>
-                    <input type="text" name="password" placeholder="Password" onChange={this.handleOnChange} /> <br/>
-                    <input type="text" placeholder="Password Confirm" /> <br/>
+                    <input type="radio" id="teachChoice" name="role" value="Teacher" onChange={this.handleOnChange} />
+                    <label htmlFor="teachChoice">Teacher</label>
+                    <input type="radio" id="studChoice"name="role" value="Student" onChange={this.handleOnChange} />
+                    <label htmlFor="studChoice">Student</label>
                     <input type="submit" />
                 </form>
             </div>
