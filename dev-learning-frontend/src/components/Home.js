@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom'
 
 class Home extends Component {
     render() { 
+        console.log("CURRENT USER", this.props.currentUser)
         return (  
             <div>
                 Home
-                {this.props.currentUser ? <h1>Welcome back, {this.props.currentUser.first_name}</h1> : null}
+                {this.props.currentUser  ? <h1>Welcome back, {this.props.currentUser.first_name}</h1> : null}
+                {this.props.currentUser.role === "Student" ? <p>student</p> : null}
+                {this.props.currentUser.role === "Teacher" ?
+                <div>
+                    <NavLink to="/classroom" exact>
+                        <button>Create New Class</button>
+                    </NavLink>
+                </div>
+                : 
+                null}
             </div>
         );
     }

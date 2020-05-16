@@ -1,15 +1,19 @@
 export default function userReducer(state ={
-    currentUser: null,
-    isTeacher: false
+    currentUser: "",
+    classroom: []
 }, action) {
     switch(action.type) {
         case "SET_USER":
             console.log("testing", action)
-            return {currentUser: action.user}
+            return {...state, currentUser: action.user}
         case "UNSET_USER":
-            return {currentUser: null}
-        case "IS_TEACHER":
-            return {isTeacher: true}
+            return {...state, currentUser: "" }
+
+        case "SET_CLASSROOM":
+            return {...state, classroom: action.classroom}
+        case "ADD_CLASSROOM":
+            return {...state, classroom: [...state.classroom, action.classroom]}
+        
 
         default:
             return state
