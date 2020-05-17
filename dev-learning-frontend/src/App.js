@@ -6,6 +6,8 @@ import {Route, Switch} from 'react-router-dom'
 import NavBar from './components/NavBar';
 import {connect} from 'react-redux'
 import ClassroomContainer from './containers/ClassroomContainer';
+import ClassroomEditContainer from './containers/ClassroomEditContainer';
+import LessonsContainer from './containers/LessonsContainer';
 
 class App extends Component {
 
@@ -44,27 +46,44 @@ class App extends Component {
       <div >
         <NavBar currentUser={this.props.currentUser} logOut={this.logOut}/>
         <Switch>
+
           <Route exact path="/" 
           render={routerProps => 
             <Home 
             {...routerProps} 
             currentUser={this.props.currentUser}/>} 
           />
+
           <Route exact path="/login" 
           render={routerProps => 
             <LoginForm 
             {...routerProps} 
             setUser={this.props.setUser}/>} 
           />
+
           <Route exact path="/signup" 
           render={routerProps => 
             <SignupForm 
             {...routerProps} 
             setUser={this.props.setUser}/>} 
           />
+
           <Route exact path="/classroom"
           render={routerProps =>
             <ClassroomContainer
+            {...routerProps}
+            currentUser={this.props.currentUser}/>}
+          />
+
+          <Route exact path="/editclassroom"
+          render={routerProps =>
+            <ClassroomEditContainer
+            {...routerProps}/>}
+          />
+          
+          <Route exact path="/lessons"
+          render={routerProps =>
+            <LessonsContainer
             {...routerProps}
             currentUser={this.props.currentUser}/>}
           />

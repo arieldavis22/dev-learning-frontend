@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
+import StudentHomeContainer from '../containers/StudentHomeContainer';
 
 class Home extends Component {
     render() { 
@@ -8,11 +9,20 @@ class Home extends Component {
             <div>
                 Home
                 {this.props.currentUser  ? <h1>Welcome back, {this.props.currentUser.first_name}</h1> : null}
-                {this.props.currentUser.role === "Student" ? <p>student</p> : null}
+                {this.props.currentUser.role === "Student" ? 
+                <div>
+                    <p>student</p> 
+                    <StudentHomeContainer currentUser={this.props.currentUser}/>
+                </div>
+                : 
+                null}
                 {this.props.currentUser.role === "Teacher" ?
                 <div>
                     <NavLink to="/classroom" exact>
                         <button>Create New Class</button>
+                    </NavLink>
+                    <NavLink to="/lessons" exact>
+                        <button>Create New Lesson</button>
                     </NavLink>
                 </div>
                 : 
