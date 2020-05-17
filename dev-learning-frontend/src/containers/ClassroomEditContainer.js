@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Student from '../components/Student'
+import Lesson from '../components/Lesson';
 
 class ClassroomEditContainer extends Component {
     componentDidMount() {
@@ -10,6 +11,21 @@ class ClassroomEditContainer extends Component {
         .then(r => r.json())
         .then(studentData => {
             this.props.setStudents(studentData)
+        })
+
+        fetch("http://localhost:3000/all-lessons", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                teacher_id: this.props.currentUser.id
+            })
+        })
+        .then(r => r.json())
+        .then(lessonData => {
+            this.props.setTeacherLessons(lessonData)
         })
     }
 
@@ -29,6 +45,22 @@ class ClassroomEditContainer extends Component {
         .then(console.log)
     }
 
+    handleClickLesson = (id) => {
+        fetch("http://localhost:3000/lesson-classroom", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                classroom_id: this.props.classroomID,
+                lesson_id: id
+            })
+        })
+        .then(r => r.json())
+        .then(console.log)
+    }
+
     renderAllStudents = () => {
         if(this.props.allStudents.data) {
             return this.props.allStudents.data.map(student => <Student 
@@ -40,12 +72,26 @@ class ClassroomEditContainer extends Component {
         }
     }
 
+    renderAllTeacherLessons = () => {
+        return this.props.teacherLessons.map(lesson => 
+            <Lesson 
+            key={lesson.id} 
+            id={lesson.id}
+            title={lesson.title}
+            edit={true}
+            handleClickLesson={this.handleClickLesson}/>
+        )
+    }
+
     render() { 
-        console.log('CLASSROOM EDIT CONTAINER:', this.props.classroomName, this.props.classroomID)
+        console.log('CLASSROOM EDIT CONTAINER:', this.props.teacherLessons)
         return (  
             <div>
                 Edit Classroom
+                <h1>Students</h1>
                 {this.renderAllStudents()}
+                <h2>Lessons</h2>
+                {this.renderAllTeacherLessons()}
             </div>
         );
     }
@@ -54,11 +100,13 @@ class ClassroomEditContainer extends Component {
 const mapStateToProps = state => ({
     classroomName: state.classroomName,
     allStudents: state.allStudents,
-    classroomID: state.classroomID
+    classroomID: state.classroomID,
+    teacherLessons: state.teacherLessons
 })
 
 const mapDispatchToProps = dispatch => ({
-    setStudents: students => dispatch({type: "SET_STUDENTS", students})
+    setStudents: students => dispatch({type: "SET_STUDENTS", students}),
+    setTeacherLessons: lessons => dispatch({type: 'SET_TEACHER_LESSONS', lessons})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassroomEditContainer);

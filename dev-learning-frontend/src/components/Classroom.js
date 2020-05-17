@@ -12,7 +12,7 @@ const Classroom = ({ id, name, setInfo, renderClassroomStudents, student}) => {
             :
             <div>
                 <NavLink to="/editclassroom" exact>
-                    <button onClick={() => setInfo(name, id)}>Edit Classroom/Add Student</button>
+                    <button onClick={() => setInfo(name, id)}>Edit Classroom/Add Student/Lesson</button>
                     {renderClassroomStudents(id)}
                 </NavLink>
             </div>

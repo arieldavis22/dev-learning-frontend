@@ -78,7 +78,8 @@ class App extends Component {
           <Route exact path="/editclassroom"
           render={routerProps =>
             <ClassroomEditContainer
-            {...routerProps}/>}
+            {...routerProps}
+            currentUser={this.props.currentUser}/>}
           />
           
           <Route exact path="/lessons"
