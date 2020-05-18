@@ -8,6 +8,9 @@ import {connect} from 'react-redux'
 import ClassroomContainer from './containers/ClassroomContainer';
 import ClassroomEditContainer from './containers/ClassroomEditContainer';
 import LessonsContainer from './containers/LessonsContainer';
+import StudentLessonContainer from './containers/StudentLessonContainer';
+import CLessonContainer from './containers/CLessonContainer';
+import TeacherFollowContainer from './containers/TeacherFollowContainer';
 
 class App extends Component {
 
@@ -85,6 +88,27 @@ class App extends Component {
           <Route exact path="/lessons"
           render={routerProps =>
             <LessonsContainer
+            {...routerProps}
+            currentUser={this.props.currentUser}/>}
+          />
+          
+          <Route exact path="/classroom-lesson"
+          render={routerProps =>
+            <StudentLessonContainer
+            {...routerProps}
+            currentUser={this.props.currentUser}/>}
+          />
+
+          <Route exact path="/complete-lesson"
+          render={routerProps =>
+            <CLessonContainer
+            {...routerProps}
+            currentUser={this.props.currentUser}/>}
+          />
+
+          <Route exact path="/teacher-follow"
+          render={routerProps =>
+            <TeacherFollowContainer
             {...routerProps}
             currentUser={this.props.currentUser}/>}
           />

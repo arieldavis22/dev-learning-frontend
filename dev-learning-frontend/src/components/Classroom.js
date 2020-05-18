@@ -1,13 +1,15 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
 
-const Classroom = ({ id, name, setInfo, renderClassroomStudents, student}) => {
+const Classroom = ({ id, name, setInfo, renderClassroomStudents, student, setLessonState}) => {
     return (  
         <div>
             <h3>{name}</h3>
             {student ?  
             <div>
-                <button>Check Lessons</button>
+                <NavLink to="/classroom-lesson" exact>
+                    <button onClick={() => setLessonState(id)}>Check Lessons</button>
+                </NavLink>
             </div>
             :
             <div>

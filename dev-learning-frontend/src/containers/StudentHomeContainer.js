@@ -20,11 +20,20 @@ class StudentHomeContainer extends Component {
             this.props.setStudentClassrooms(data)
         })
     }
+
+    setLessonState = (id) => {
+        this.props.setID(id)
+    }
     
     renderClassrooms = () => {
         if(this.props.studentClassrooms) {
             return this.props.studentClassrooms.map(classroom => {
-                return <Classroom key={classroom.id} name={classroom.name} student={true}/>
+                return <Classroom 
+                key={classroom.id} 
+                id={classroom.id}
+                name={classroom.name} 
+                student={true}
+                setLessonState={this.setLessonState}/>
             })
         }
     }
@@ -45,6 +54,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setStudentClassrooms: classrooms => dispatch({type: "SET_STUDENT_CLASSROOMS", classrooms}),
+    setID: classID => dispatch({type: 'SET_CLASSROOM_ID', classID})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentHomeContainer);

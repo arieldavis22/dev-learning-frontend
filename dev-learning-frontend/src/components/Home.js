@@ -24,6 +24,9 @@ class Home extends Component {
                     <NavLink to="/lessons" exact>
                         <button>Create New Lesson</button>
                     </NavLink>
+                    <NavLink to="/teacher-follow" exact>
+                        <button>See Following</button>
+                    </NavLink>
                 </div>
                 : 
                 null}

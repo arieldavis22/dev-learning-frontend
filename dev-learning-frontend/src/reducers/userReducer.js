@@ -5,7 +5,10 @@ export default function userReducer(state ={
     classroomID: '',
     allStudents: [],
     studentClassrooms: [],
-    teacherLessons: []
+    teacherLessons: [],
+    classroomLessons: [],
+    CLesson: {},
+    allTeachers: []
 }, action) {
     switch(action.type) {
         case "SET_USER":
@@ -32,6 +35,15 @@ export default function userReducer(state ={
 
         case "SET_TEACHER_LESSONS":
             return {...state, teacherLessons: action.lessons}
+
+        case "SET_CLASSROOM_LESSONS":
+            return {...state, classroomLessons: action.lessons}
+
+        case "SET_C_LESSON":
+            return {...state, CLesson: action.lesson}
+
+        case "SET_ALL_TEACHERS":
+            return {...state, allTeachers: action.teachers}
 
 
         default:
