@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Teacher = ({ first_name, last_name }) => {
+const Teacher = ({ id, first_name, last_name, handleTeacherFollow, notFollowed }) => {
     return (  
         <div>
             <h3>{first_name}, {last_name}</h3> 
-            <button>Follow</button>
+            {notFollowed ? <button onClick={() => handleTeacherFollow(id)}>Follow</button> : null }
         </div>
     );
 }
