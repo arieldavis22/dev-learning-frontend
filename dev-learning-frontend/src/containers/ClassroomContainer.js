@@ -31,25 +31,6 @@ class ClassroomContainer extends Component {
         this.props.setID(id)
     }
 
-    renderClassroomStudents = (id) => {
-        fetch("http://localhost:3000/find-students", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: id
-            })
-        })
-        .then(r => r.json())
-        .then(studentData => {
-            return studentData.data.map(student =>{
-                return console.log(student)
-            })
-        })
-    }
-
 
     renderClassrooms = () => {
         if(this.props.classroom) {
@@ -57,8 +38,8 @@ class ClassroomContainer extends Component {
                 key={classroom.id} 
                 id={classroom.id}
                 name={classroom.name}
-                renderClassroomStudents={this.renderClassroomStudents}
-                setInfo={this.setNameAndID}/>)
+                setInfo={this.setNameAndID}
+                render={true}/>)
         }
     }
 

@@ -52,7 +52,8 @@ class TeacherFollowContainer extends Component {
                 key={teacher.attributes.id} 
                 id={teacher.attributes.id}
                 first_name={teacher.attributes.first_name} 
-                last_name={teacher.attributes.last_name}/>
+                last_name={teacher.attributes.last_name}
+                follow={true}/>
             )
         }
     }

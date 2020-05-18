@@ -68,6 +68,7 @@ class ClassroomEditContainer extends Component {
                 id={student.attributes.id}
                 first_name={student.attributes.first_name}
                 last_name={student.attributes.last_name}
+                addToClass={true}
                 handleClick={this.handleClick}/>)
         }
     }

@@ -12,6 +12,7 @@ class Home extends Component {
                 {this.props.currentUser.role === "Student" ? 
                 <div>
                     <p>student</p> 
+                    <p>GPA: {this.props.currentUser.point_average}</p>
                     <StudentHomeContainer currentUser={this.props.currentUser}/>
                 </div>
                 : 

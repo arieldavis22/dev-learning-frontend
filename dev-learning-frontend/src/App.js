@@ -11,6 +11,7 @@ import LessonsContainer from './containers/LessonsContainer';
 import StudentLessonContainer from './containers/StudentLessonContainer';
 import CLessonContainer from './containers/CLessonContainer';
 import TeacherFollowContainer from './containers/TeacherFollowContainer';
+import LessonsToClassroomContainer from './containers/LessonsToClassroomContainer';
 
 class App extends Component {
 
@@ -109,6 +110,13 @@ class App extends Component {
           <Route exact path="/teacher-follow"
           render={routerProps =>
             <TeacherFollowContainer
+            {...routerProps}
+            currentUser={this.props.currentUser}/>}
+          />
+
+        <Route exact path="/add-lesson"
+          render={routerProps =>
+            <LessonsToClassroomContainer
             {...routerProps}
             currentUser={this.props.currentUser}/>}
           />

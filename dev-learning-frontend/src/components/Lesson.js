@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 const Lesson = ({ id, title, edit, handleClickLesson, cLesson, handleOnClickLesson, lesson }) => {
     return (  
         <div>
-            <h1>{title}</h1>
+            <h1>Lesson Name: {title}</h1>
             {cLesson ? 
             <div>
                 <NavLink to="/complete-lesson" exact>
