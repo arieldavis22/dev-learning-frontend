@@ -5,6 +5,11 @@ import Student from './Student';
 import Lesson from './Lesson';
 
 class Classroom extends Component {
+    
+    state = {
+        studentsInClass: [],
+        lessonsInClass: []
+    }
 
     componentDidMount() {
         fetch("http://localhost:3000/find-students", {
@@ -19,7 +24,9 @@ class Classroom extends Component {
         })
         .then(r => r.json())
         .then(data => {
-            this.props.setStudentsInClassroom(data)
+            this.setState({
+                studentsInClass: data
+            })
         })
 
         fetch("http://localhost:3000/find-lessons", {
@@ -34,27 +41,47 @@ class Classroom extends Component {
         })
         .then(r => r.json())
         .then(data => {
-            this.props.setClassroomLessons(data)
+            this.setState({
+                lessonsInClass: data
+            })
         })
 
     }
 
+    handleRemoveFromClassroom = id => {
+        fetch("http://localhost:3000/remove-student", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                classroom_id: this.props.id,
+                student_id: id
+            })
+        })
+        .then(r => r.json())
+        .then(console.log)
+    }
+
 
     renderStudents = () => {
-        if(this.props.studentsInClassroom.data) {
-            return this.props.studentsInClassroom.data.map(student => 
+        if(this.state.studentsInClass.data) {
+            return this.state.studentsInClass.data.map(student => 
                 <Student 
                 key={student.attributes.id}
+                id={student.attributes.id}
                 first_name={student.attributes.first_name} 
                 last_name={student.attributes.last_name}
                 point_average={student.attributes.point_average}
-                remove={true}/>
+                remove={true}
+                handleRemoveFromClass={this.handleRemoveFromClassroom}/>
             )
         }
     }
 
     renderLessons = () => {
-        return this.props.classroomLessons.map(lesson => 
+        return this.state.lessonsInClass.map(lesson => 
             <Lesson key={lesson.id} title={lesson.title} />
         )
     }
