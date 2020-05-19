@@ -47,7 +47,8 @@ class Classroom extends Component {
                 key={student.attributes.id}
                 first_name={student.attributes.first_name} 
                 last_name={student.attributes.last_name}
-                point_average={student.attributes.point_average}/>
+                point_average={student.attributes.point_average}
+                remove={true}/>
             )
         }
     }

@@ -12,6 +12,7 @@ import StudentLessonContainer from './containers/StudentLessonContainer';
 import CLessonContainer from './containers/CLessonContainer';
 import TeacherFollowContainer from './containers/TeacherFollowContainer';
 import LessonsToClassroomContainer from './containers/LessonsToClassroomContainer';
+import EditUserContainer from './containers/EditUserContainer';
 
 class App extends Component {
 
@@ -117,6 +118,13 @@ class App extends Component {
         <Route exact path="/add-lesson"
           render={routerProps =>
             <LessonsToClassroomContainer
+            {...routerProps}
+            currentUser={this.props.currentUser}/>}
+          />
+
+        <Route exact path="/edit-user"
+          render={routerProps =>
+            <EditUserContainer
             {...routerProps}
             currentUser={this.props.currentUser}/>}
           />

@@ -1,10 +1,23 @@
 import React from 'react';
 
-const Student = ({ id, first_name, last_name, point_average, addToClass, handleClick }) => {
+const Student = ({ id, first_name, last_name, point_average, addToClass, handleClick, remove }) => {
     return (  
         <div>
             {first_name}, {last_name}: {point_average} 
-            {addToClass ? <button onClick={() => handleClick(id)}>Add To Class</button> : null}
+            {addToClass ? 
+            <div>
+                <button onClick={() => handleClick(id)}>Add To Class</button> 
+            </div>
+            : 
+            null
+            }
+            {remove ? 
+            <div>
+                <button>Remove From Class</button>
+            </div> 
+            : 
+            null
+            }
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Student from '../components/Student'
 import Lesson from '../components/Lesson';
+import ClassroomEditForm from '../components/ClassroomEditForm';
 
 class ClassroomEditContainer extends Component {
     componentDidMount() {
@@ -85,10 +86,14 @@ class ClassroomEditContainer extends Component {
     }
 
     render() { 
-        console.log('CLASSROOM EDIT CONTAINER:', this.props.teacherLessons)
+        console.log('CLASSROOM EDIT CONTAINER:', this.props.classroomName)
         return (  
             <div>
                 Edit Classroom
+                Name:
+                <ClassroomEditForm 
+                classroomName={this.props.classroomName}
+                classroomID={this.props.classroomID}/>
                 <h1>Students</h1>
                 {this.renderAllStudents()}
                 <h2>Lessons</h2>
