@@ -8,7 +8,6 @@ const Lesson = ({ id, title, edit, handleClickLesson, cLesson, handleOnClickLess
     const yyyy = today.getFullYear();
 
     today = yyyy + '-' + mm + '-' + dd;
-    console.log(today > lesson.deadline)
     return (  
         <div>
             <h1>Lesson Name: {title}</h1>

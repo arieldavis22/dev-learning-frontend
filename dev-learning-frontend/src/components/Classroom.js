@@ -25,8 +25,9 @@ class Classroom extends Component {
         .then(r => r.json())
         .then(data => {
             this.setState({
-                studentsInClass: data
+                studentsInClass: data.users
             })
+            console.log("CLASSROOM DAAATA",data)
         })
 
         fetch("http://localhost:3000/find-lessons", {
@@ -73,9 +74,9 @@ class Classroom extends Component {
                 id={student.attributes.id}
                 first_name={student.attributes.first_name} 
                 last_name={student.attributes.last_name}
-                point_average={student.attributes.point_average}
                 remove={true}
-                handleRemoveFromClass={this.handleRemoveFromClassroom}/>
+                handleRemoveFromClass={this.handleRemoveFromClassroom}
+                classroom_id={this.props.id}/>
             )
         }
     }

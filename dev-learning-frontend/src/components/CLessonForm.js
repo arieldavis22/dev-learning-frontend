@@ -25,7 +25,20 @@ class CLessonForm extends Component {
         .then(r => r.json())
         .then(data => {
             if(data.message === "Correct") {
-                alert("Correct Answer")
+                fetch("http://localhost:3000/correct", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        classroom_id: this.props.classroomID,
+                        student_id: this.props.student_id,
+                        points: this.props.points
+                    })
+                })
+                .then(r => r.json())
+                .then(console.log)
             } else {
                 alert("Incorrect Answer")
             }
@@ -33,7 +46,7 @@ class CLessonForm extends Component {
     }
 
     render() { 
-        console.log("CL FORM:", this.state)
+        console.log("CL FORM:", this.props)
         return (  
             <div>
                 <form onSubmit={this.handleOnSubmit}>
