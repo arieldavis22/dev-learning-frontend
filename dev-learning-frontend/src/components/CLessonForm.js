@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class CLessonForm extends Component {
     state = {  
         code: "",
@@ -25,6 +26,7 @@ class CLessonForm extends Component {
         .then(r => r.json())
         .then(data => {
             if(data.message === "Correct") {
+                alert("Correct Answer")
                 fetch("http://localhost:3000/correct", {
                     method: "POST",
                     headers: {
@@ -41,6 +43,20 @@ class CLessonForm extends Component {
                 .then(console.log)
             } else {
                 alert("Incorrect Answer")
+                fetch("http://localhost:3000/wrong", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        classroom_id: this.props.classroomID,
+                        student_id: this.props.student_id,
+                        points: this.props.points
+                    })
+                })
+                .then(r => r.json())
+                .then(console.log)
             }
         })
     }

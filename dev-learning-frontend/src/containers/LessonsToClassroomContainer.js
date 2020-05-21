@@ -60,8 +60,8 @@ class LessonsToClassroomContainer extends Component {
     }
 }
 const mapStateToProps = state => ({
-    lessonID: state.lessonID,
-    allClassrooms: state.allClassrooms
+    lessonID: state.lesson.lessonID,
+    allClassrooms: state.classroom.allClassrooms
 })
 
 const mapDispatchToProps = dispatch => ({

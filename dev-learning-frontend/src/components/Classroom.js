@@ -3,15 +3,17 @@ import {NavLink} from 'react-router-dom'
 import { connect } from 'react-redux';
 import Student from './Student';
 import Lesson from './Lesson';
+import FadeIn from 'react-fade-in';
 
 class Classroom extends Component {
     
     state = {
         studentsInClass: [],
-        lessonsInClass: []
+        lessonsInClass: [],
+        gpa: '',
     }
 
-    componentDidMount() {
+    fetchAllStudents = () => {
         fetch("http://localhost:3000/find-students", {
             method: "POST",
             headers: {
@@ -29,6 +31,10 @@ class Classroom extends Component {
             })
             console.log("CLASSROOM DAAATA",data)
         })
+    }
+
+    componentDidMount() {
+        this.fetchAllStudents()
 
         fetch("http://localhost:3000/find-lessons", {
             method: "POST",
@@ -47,6 +53,24 @@ class Classroom extends Component {
             })
         })
 
+        fetch("http://localhost:3000/find-student-gpa", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                classroom_id: this.props.id,
+                student_id: this.props.student_id
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            this.setState({
+                gpa: data
+            })
+        })
+
     }
 
     handleRemoveFromClassroom = id => {
@@ -62,7 +86,7 @@ class Classroom extends Component {
             })
         })
         .then(r => r.json())
-        .then(console.log)
+        .then(() => this.fetchAllStudents())
     }
 
 
@@ -93,7 +117,7 @@ class Classroom extends Component {
         const { id, name, setInfo, student, setLessonState, render, handleLessonToClassroom, lesson } = this.props
         return (  
             <div>
-
+                <FadeIn>
             <h3>Classroom Name: {name}</h3>
             {this.props.currentUser.role === "Student" ? null : 
             
@@ -110,6 +134,7 @@ class Classroom extends Component {
 
             {student ?  
             <div>
+                <p>Grade: {this.state.gpa} </p>
                 <NavLink to="/classroom-lesson" exact>
                     <button onClick={() => setLessonState(id)}>Check Lessons</button>
                 </NavLink>
@@ -125,16 +150,16 @@ class Classroom extends Component {
             </div>
             :
             null}
-
+                </FadeIn>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    studentsInClassroom: state.studentsInClassroom,
-    classroomLessons: state.classroomLessons,
-    currentUser: state.currentUser
+    studentsInClassroom: state.student.studentsInClassroom,
+    classroomLessons: state.classroom.classroomLessons,
+    currentUser: state.user.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

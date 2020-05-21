@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FadeIn from 'react-fade-in';
 
 class LoginForm extends Component {
     state = {  
@@ -38,12 +39,14 @@ class LoginForm extends Component {
         console.log(this.state)
         return (  
             <div>
+                <FadeIn>
                 Login Teacher
                 <form onSubmit={this.handleOnSubmit}>
                     <input type="text" name="email" onChange={this.handleOnChange} placeholder="Email"/><br/>
                     <input type="text" name="password" onChange={this.handleOnChange} placeholder="Password"/><br/>
                     <input type="submit"/>
                 </form>
+                </FadeIn>
             </div>
         );
     }

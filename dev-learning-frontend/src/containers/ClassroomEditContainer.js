@@ -5,15 +5,25 @@ import Lesson from '../components/Lesson';
 import ClassroomEditForm from '../components/ClassroomEditForm';
 
 class ClassroomEditContainer extends Component {
-    componentDidMount() {
+
+    fetchAllStudents = () => {
         fetch("http://localhost:3000/all-students", {
-            credentials: "include"
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                classroom_id: this.props.classroomID
+            })
         })
         .then(r => r.json())
         .then(studentData => {
             this.props.setStudents(studentData)
         })
+    }
 
+    fetchAllLessons = () => {
         fetch("http://localhost:3000/all-lessons", {
             method: "POST",
             headers: {
@@ -21,13 +31,20 @@ class ClassroomEditContainer extends Component {
             },
             credentials: "include",
             body: JSON.stringify({
-                teacher_id: this.props.currentUser.id
+                teacher_id: this.props.currentUser.id,
+                classroom_id: this.props.classroomID
             })
         })
         .then(r => r.json())
         .then(lessonData => {
             this.props.setTeacherLessons(lessonData)
         })
+    }
+
+    componentDidMount() {
+        this.fetchAllStudents()
+        this.fetchAllLessons()
+
     }
 
     handleClick = (id) => {
@@ -43,7 +60,7 @@ class ClassroomEditContainer extends Component {
             })
         })
         .then(r => r.json())
-        .then(console.log)
+        .then(() => this.fetchAllStudents())
     }
 
     handleClickLesson = (id) => {
@@ -59,7 +76,7 @@ class ClassroomEditContainer extends Component {
             })
         })
         .then(r => r.json())
-        .then(console.log)
+        .then(() => this.fetchAllLessons())
     }
 
     renderAllStudents = () => {
@@ -105,10 +122,10 @@ class ClassroomEditContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    classroomName: state.classroomName,
-    allStudents: state.allStudents,
-    classroomID: state.classroomID,
-    teacherLessons: state.teacherLessons
+    classroomName: state.classroom.classroomName,
+    allStudents: state.student.allStudents,
+    classroomID: state.classroom.classroomID,
+    teacherLessons: state.teacher.teacherLessons
 })
 
 const mapDispatchToProps = dispatch => ({

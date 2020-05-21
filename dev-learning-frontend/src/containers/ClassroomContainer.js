@@ -8,7 +8,7 @@ class ClassroomContainer extends Component {
         students: []
     }
 
-    componentDidMount() {
+    fetchAllClassrooms = () => {
         fetch("http://localhost:3000/all-classrooms", {
             method: "POST",
             headers: {
@@ -24,6 +24,10 @@ class ClassroomContainer extends Component {
             console.log("CLASSROOM DATA", classroomData)
             this.props.setClassroom(classroomData)
         })
+    }
+
+    componentDidMount() {
+        this.fetchAllClassrooms()
     }
 
     setNameAndID = (name, id) => {
@@ -50,7 +54,8 @@ class ClassroomContainer extends Component {
             <div>
                 <ClassroomForm 
                 currentUser={this.props.currentUser}
-                addClassroom={this.props.addClassroom}/>
+                addClassroom={this.props.addClassroom}
+                fetchAllClassrooms={this.fetchAllClassrooms}/>
                 {this.renderClassrooms()}
                 {this.state.students.map(student => <li>{student}</li>)}
             </div>
@@ -59,7 +64,7 @@ class ClassroomContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    classroom: state.classroom,
+    classroom: state.classroom.classroom,
 })
 
 const mapDispatchToProps = dispatch => ({

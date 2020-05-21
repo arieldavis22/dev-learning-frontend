@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CLessonForm from '../components/CLessonForm';
+import FadeIn from 'react-fade-in';
 
 class CLessonContainer extends Component {
     state = {  }
@@ -10,6 +11,7 @@ class CLessonContainer extends Component {
         const { title, description, boilerplate, return_value, points, deadline } = this.props.CLesson
         return (  
             <div>
+                <FadeIn>
                 <h1>{title}</h1>
                 <p>{description}</p>
                 <h5>Points worth: {points}</h5>
@@ -20,14 +22,15 @@ class CLessonContainer extends Component {
                 points={points}
                 classroomID={this.props.classroomID}
                 student_id={this.props.currentUser.id}/>
+                </FadeIn>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    CLesson: state.CLesson,
-    classroomID: state.classroomID
+    CLesson: state.lesson.CLesson,
+    classroomID: state.classroom.classroomID
 })
 
 export default connect(mapStateToProps)(CLessonContainer);

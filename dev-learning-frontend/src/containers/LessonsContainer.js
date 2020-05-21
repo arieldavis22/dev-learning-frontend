@@ -45,7 +45,7 @@ class LessonsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    teacherLessons: state.teacherLessons
+    teacherLessons: state.teacher.teacherLessons
 })
 
 const mapDispatchToProps = dispatch => ({

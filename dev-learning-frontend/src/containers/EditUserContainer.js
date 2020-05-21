@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import FadeIn from 'react-fade-in';
 
 class EditUserContainer extends Component {
     state = {  
@@ -41,6 +42,7 @@ class EditUserContainer extends Component {
         console.log("EDIT USER STATE:", this.state)
         return (  
             <div>
+                <FadeIn>
                 <form onSubmit={this.handleOnSubmit}>
                     <input 
                     type="text" 
@@ -54,16 +56,14 @@ class EditUserContainer extends Component {
                     onChange={this.handleOnChange} />
                     <input type="submit" />
                 </form>
+                </FadeIn>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({
-})
-
 const mapDispatchToProps = dispatch => ({
     setUser: user => dispatch({type: "SET_USER", user})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditUserContainer);
+export default connect(null, mapDispatchToProps)(EditUserContainer);

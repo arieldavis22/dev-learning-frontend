@@ -54,7 +54,7 @@ class Teacher extends Component {
     }
 }
 const mapStateToProps = state => ({
-    lessonID: state.lessonID
+    lessonID: state.lesson.lessonID
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FadeIn from 'react-fade-in';
 
 class SignupForm extends Component {
     state = {  
@@ -35,6 +36,7 @@ class SignupForm extends Component {
     render() { 
         return (  
             <div>
+                <FadeIn>
                 Signup
                 <form onSubmit={this.handleOnSubmit}>
                     <input type="text" name="first_name" placeholder="First Name" onChange={this.handleOnChange} /> <br/>
@@ -48,6 +50,7 @@ class SignupForm extends Component {
                     <label htmlFor="studChoice">Student</label>
                     <input type="submit" />
                 </form>
+                </FadeIn>
             </div>
         );
     }

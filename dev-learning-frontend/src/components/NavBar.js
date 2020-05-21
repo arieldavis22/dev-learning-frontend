@@ -1,38 +1,81 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
+import { Menu } from 'semantic-ui-react'
 
 class NavBar extends Component {
+    state = {}
+
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() { 
-        // console.log("Navbar", this.props.currentUser)
+        const { activeItem } = this.state
         return (  
-            <div>
+            <Menu>
+
                 <NavLink to="/" exact>
-                    <button>Home</button>
+                    <Menu.Item
+                        name='home'
+                        active={activeItem === 'home'}
+                        onClick={this.handleItemClick}>
+                            Home
+                    </Menu.Item>
                 </NavLink>
+
+
                 {!this.props.currentUser ? 
-                    <div>
+                    <>
+
+
                     <NavLink to="/signup" exact>
-                        <button>Signup</button>
-                    </NavLink>
-                    <NavLink to="/login" exact>
-                        <button>Login</button>
-                    </NavLink>
-                </div>
-                :
-                <div>
-                    <NavLink to="/" >
-                        <button onClick={this.props.logOut}>Logout</button>
+                    <Menu.Item
+                        name='signup'
+                        active={activeItem === 'signup'}>
+                            Signup
+                    </Menu.Item>
                     </NavLink>
 
-                    <NavLink to="/edit-user" exact>
-                        <button>Edit User</button>
+
+                    <NavLink to="/login" exact>
+                        <Menu.Item
+                            name='login'
+                            active={activeItem === 'login'}>
+                                Login
+                        </Menu.Item>
                     </NavLink>
-                </div>
+
+
+                </>
+                :
+                <>
+
+
+                    <NavLink to="/" >
+                    <Menu.Item
+                        name='logout'
+                        active={activeItem === 'logout'}
+                        onClick={this.props.logOut}>
+                            Logout
+                    </Menu.Item>
+                    </NavLink>
+
+
+
+                    <NavLink to="/edit-user" exact>
+                    <Menu.Item
+                            name='edit'
+                            active={activeItem === 'edit'}
+                            onClick={this.handleItemClick}>
+                                Edit User
+                        </Menu.Item>
+                    </NavLink>
+
+
+                </>
                 }
-            </div>
+            </Menu>
         );
     }
 }
+
 
 export default NavBar;

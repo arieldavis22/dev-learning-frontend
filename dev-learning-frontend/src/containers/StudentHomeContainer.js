@@ -33,7 +33,8 @@ class StudentHomeContainer extends Component {
                 id={classroom.id}
                 name={classroom.name} 
                 student={true}
-                setLessonState={this.setLessonState}/>
+                setLessonState={this.setLessonState}
+                student_id={this.props.currentUser.id}/>
             })
         }
     }
@@ -49,7 +50,7 @@ class StudentHomeContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    studentClassrooms: state.studentClassrooms,
+    studentClassrooms: state.student.studentClassrooms,
 })
 
 const mapDispatchToProps = dispatch => ({

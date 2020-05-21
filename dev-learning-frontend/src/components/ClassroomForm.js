@@ -25,6 +25,7 @@ class ClassroomForm extends Component {
         })
         .then(r => r.json())
         .then(classroomData => {
+            this.props.fetchAllClassrooms()
             this.props.addClassroom(classroomData)
             this.setState({
                 state: this.props.currentUser.id,

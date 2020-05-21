@@ -6,7 +6,14 @@ class TeacherFollowContainer extends Component {
     
     componentDidMount() {
         fetch("http://localhost:3000/all-teachers", {
-        credentials: 'include'
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                teacher_id: this.props.currentUser.id
+            })
         })
         .then(r => r.json())
         .then(data => {
@@ -59,7 +66,7 @@ class TeacherFollowContainer extends Component {
     }
 
     renderTeachers = () => {
-        if(this.props.allTeachers.data) {// eslint-disable-next-line
+        if(this.props.allTeachers.data && this.props.followedTeachers.data) {// eslint-disable-next-line
             return this.props.allTeachers.data.map(teacher => {
                 if(teacher.attributes.id !== this.props.currentUser.id) {
                     return <Teacher 
@@ -75,6 +82,7 @@ class TeacherFollowContainer extends Component {
     }
     render() { 
         console.log("TEAHER FOLLOW:", this.props.followedTeachers)
+        console.log("Teacher NOT FOLLOWED:", this.props.allTeachers)
         return (  
             <div>
                 Teacher Follow
@@ -87,13 +95,14 @@ class TeacherFollowContainer extends Component {
     }
 }
 const mapStateToProps = state => ({
-    allTeachers: state.allTeachers,
-    followedTeachers: state.followedTeachers
+    allTeachers: state.teacher.allTeachers,
+    followedTeachers: state.teacher.followedTeachers
 })
 
 const mapDispatchToProps = dispatch => ({
     setTeachers: teachers => dispatch({type: "SET_ALL_TEACHERS", teachers}),
-    setFollowedTeachers: teachers => dispatch({type: "SET_FOLLOWED_TEACHERS", teachers})
+    setFollowedTeachers: teachers => dispatch({type: "SET_FOLLOWED_TEACHERS", teachers}),
+    // addTeacher: teacher => dispatch({type: "ADD_FOLLOWED_TEACHER", teacher})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeacherFollowContainer);

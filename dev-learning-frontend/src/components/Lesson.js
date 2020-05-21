@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
+import FadeIn from 'react-fade-in';
 
 const Lesson = ({ id, title, edit, handleClickLesson, cLesson, handleOnClickLesson, lesson }) => {
     let today = new Date();
@@ -10,6 +11,7 @@ const Lesson = ({ id, title, edit, handleClickLesson, cLesson, handleOnClickLess
     today = yyyy + '-' + mm + '-' + dd;
     return (  
         <div>
+            <FadeIn>
             <h1>Lesson Name: {title}</h1>
             {cLesson ? 
             <div>
@@ -28,6 +30,7 @@ const Lesson = ({ id, title, edit, handleClickLesson, cLesson, handleOnClickLess
             : 
             null}
             {edit ? <button onClick={() => handleClickLesson(id)}>Add To Class</button> : null}
+            </FadeIn>
         </div>
     );
 }
