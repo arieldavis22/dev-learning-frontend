@@ -2,9 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CLessonForm from '../components/CLessonForm';
 import FadeIn from 'react-fade-in';
+import IDEConsole from '../components/IDEConole';
 
 class CLessonContainer extends Component {
-    state = {  }
+
+    componentDidMount() {
+        this.props.clearConsole()
+    }
+
+    handleCodeTest = (code) => {
+        fetch("http://localhost:3000/test-code", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                code: code
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            this.props.addToConsole(data)
+            this.forceUpdate()
+        })
+    }
+
+    renderConsoleLog = () => {
+        return this.props.console.map(log => 
+            <IDEConsole log={log} />
+        )
+    }
 
     render() { 
         console.log("CLesson COntainer:", this.props)
@@ -21,7 +49,9 @@ class CLessonContainer extends Component {
                 return_value={return_value} 
                 points={points}
                 classroomID={this.props.classroomID}
-                student_id={this.props.currentUser.id}/>
+                student_id={this.props.currentUser.id}
+                handleCodeTest={this.handleCodeTest}/>
+                {this.renderConsoleLog()}
                 </FadeIn>
             </div>
         );
@@ -30,7 +60,13 @@ class CLessonContainer extends Component {
 
 const mapStateToProps = state => ({
     CLesson: state.lesson.CLesson,
-    classroomID: state.classroom.classroomID
+    classroomID: state.classroom.classroomID,
+    console: state.lesson.console
 })
 
-export default connect(mapStateToProps)(CLessonContainer);
+const mapDispatchToProps = dispatch => ({
+    addToConsole: line => dispatch({type: "ADD_LOG_TO_CONSOLE", line}),
+    clearConsole: () => dispatch({type: "CLEAR_LOG"})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CLessonContainer);

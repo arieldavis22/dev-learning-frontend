@@ -2,6 +2,7 @@ export default function lesson(state = {
     classroomLessons: [],
     CLesson: {},
     lessonID: "",
+    console: []
 }, action) {
 
     switch(action.type) {
@@ -13,6 +14,12 @@ export default function lesson(state = {
 
         case "SET_LESSON_ID":
             return {...state, lessonID: action.lessonId}
+
+        case "ADD_LOG_TO_CONSOLE":
+            return {...state, console: [...state.console, action.line]}
+
+        case "CLEAR_LOG":
+            return {...state, console: []}
 
         default:
             return state

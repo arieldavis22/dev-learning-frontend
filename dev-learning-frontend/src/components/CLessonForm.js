@@ -61,12 +61,13 @@ class CLessonForm extends Component {
         })
     }
 
+
     render() { 
-        console.log("CL FORM:", this.props)
         return (  
             <div>
                 <form onSubmit={this.handleOnSubmit}>
                     <textarea name="code" onChange={this.handleOnChange} placeholder={this.props.boilerplate} />
+                    <button type="button" onClick={() => this.props.handleCodeTest(this.state.code)}>Run Code</button>
                     <input type="Submit" />
                 </form>
             </div>
