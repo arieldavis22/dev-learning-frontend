@@ -89,6 +89,10 @@ class Classroom extends Component {
         .then(() => this.fetchAllStudents())
     }
 
+    handleSetLessonId = id => {
+        this.props.setLessonID(id)
+    }
+
 
     renderStudents = () => {
         if(this.state.studentsInClass.data) {
@@ -107,7 +111,12 @@ class Classroom extends Component {
 
     renderLessons = () => {
         return this.state.lessonsInClass.map(lesson => 
-            <Lesson key={lesson.id} title={lesson.title} />
+            <Lesson 
+            key={lesson.id} 
+            id={lesson.id}
+            title={lesson.title} 
+            report={true}
+            handleSetLessonId={this.handleSetLessonId}/>
         )
     }
 
@@ -164,7 +173,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setStudentsInClassroom: students => dispatch({type: "SET_STUDENTS_IN_CLASSROOMS", students}),
-    setClassroomLessons: lessons => dispatch({type: "SET_CLASSROOM_LESSONS", lessons})
+    setClassroomLessons: lessons => dispatch({type: "SET_CLASSROOM_LESSONS", lessons}),
+    setLessonID: lessonId => dispatch({type: "SET_LESSON_ID", lessonId})
 
 })
 

@@ -14,6 +14,7 @@ import TeacherFollowContainer from './containers/TeacherFollowContainer';
 import LessonsToClassroomContainer from './containers/LessonsToClassroomContainer';
 import EditUserContainer from './containers/EditUserContainer';
 import StackQuestionMenu from './components/StackQuestionMenu';
+import ReportContainer from './containers/ReportContainer';
 
 class App extends Component {
 
@@ -127,6 +128,13 @@ class App extends Component {
         <Route exact path="/edit-user"
           render={routerProps =>
             <EditUserContainer
+            {...routerProps}
+            currentUser={this.props.currentUser}/>}
+          />
+
+        <Route exact path="/reports"
+          render={routerProps =>
+            <ReportContainer
             {...routerProps}
             currentUser={this.props.currentUser}/>}
           />

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CLessonForm from '../components/CLessonForm';
 import FadeIn from 'react-fade-in';
 import IDEConsole from '../components/IDEConole';
+import ReportForm from '../components/ReportForm';
 
 class CLessonContainer extends Component {
 
@@ -54,6 +55,9 @@ class CLessonContainer extends Component {
                 handleCodeTest={this.handleCodeTest}
                 lesson_lang={this.props.CLesson.language}/>
                 {this.renderConsoleLog()}
+
+                <ReportForm
+                lesson_id={this.props.CLesson.id} />
                 </FadeIn>
             </div>
         );
