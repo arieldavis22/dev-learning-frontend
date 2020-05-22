@@ -10,7 +10,7 @@ class CLessonContainer extends Component {
         this.props.clearConsole()
     }
 
-    handleCodeTest = (code) => {
+    handleCodeTest = (code, lesson_lang) => {
         fetch("http://localhost:3000/test-code", {
             method: "POST",
             headers: {
@@ -18,13 +18,14 @@ class CLessonContainer extends Component {
             },
             credentials: "include",
             body: JSON.stringify({
-                code: code
+                code: code,
+                lesson_lang: lesson_lang
             })
         })
         .then(r => r.json())
         .then(data => {
+            // debugger
             this.props.addToConsole(data)
-            this.forceUpdate()
         })
     }
 
@@ -50,7 +51,8 @@ class CLessonContainer extends Component {
                 points={points}
                 classroomID={this.props.classroomID}
                 student_id={this.props.currentUser.id}
-                handleCodeTest={this.handleCodeTest}/>
+                handleCodeTest={this.handleCodeTest}
+                lesson_lang={this.props.CLesson.language}/>
                 {this.renderConsoleLog()}
                 </FadeIn>
             </div>
@@ -61,7 +63,7 @@ class CLessonContainer extends Component {
 const mapStateToProps = state => ({
     CLesson: state.lesson.CLesson,
     classroomID: state.classroom.classroomID,
-    console: state.lesson.console
+    console: state.lesson.console,
 })
 
 const mapDispatchToProps = dispatch => ({

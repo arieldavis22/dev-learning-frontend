@@ -13,6 +13,7 @@ import CLessonContainer from './containers/CLessonContainer';
 import TeacherFollowContainer from './containers/TeacherFollowContainer';
 import LessonsToClassroomContainer from './containers/LessonsToClassroomContainer';
 import EditUserContainer from './containers/EditUserContainer';
+import StackQuestionMenu from './components/StackQuestionMenu';
 
 class App extends Component {
 
@@ -50,6 +51,7 @@ class App extends Component {
     return (
       <div >
         <NavBar currentUser={this.props.currentUser} logOut={this.logOut}/>
+        <StackQuestionMenu />
         <Switch>
 
           <Route exact path="/" 

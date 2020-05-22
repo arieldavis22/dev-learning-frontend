@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
 import StudentHomeContainer from '../containers/StudentHomeContainer';
 import FadeIn from 'react-fade-in';
-import { Container } from 'semantic-ui-react'
+// import { Container } from 'semantic-ui-react'
 
 class Home extends Component {
     render() { 
         console.log("CURRENT USER", this.props.currentUser)
         return (  
             <div>
-                <FadeIn>
+                {/* <FadeIn>
                     <Container textAlign='center'>
                         Welcome to Dev Learning
                     </Container>
@@ -18,7 +18,7 @@ class Home extends Component {
                         aimed to help young individuals prepare for a career in
                         software development.
                     </Container>
-                </FadeIn>
+                </FadeIn> */}
                 {this.props.currentUser  ? 
                 <div>
                     <FadeIn>

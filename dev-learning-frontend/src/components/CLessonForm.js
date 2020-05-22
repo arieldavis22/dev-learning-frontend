@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 class CLessonForm extends Component {
     state = {  
         code: "",
-        return_value: this.props.return_value
+        return_value: this.props.return_value,
+        lesson_lang: this.props.lesson_lang
     }
 
     handleOnChange = (event) => {
@@ -63,11 +64,12 @@ class CLessonForm extends Component {
 
 
     render() { 
+        console.log(this.state)
         return (  
             <div>
                 <form onSubmit={this.handleOnSubmit}>
                     <textarea name="code" onChange={this.handleOnChange} placeholder={this.props.boilerplate} />
-                    <button type="button" onClick={() => this.props.handleCodeTest(this.state.code)}>Run Code</button>
+                    <button type="button" onClick={() => this.props.handleCodeTest(this.state.code, this.state.lesson_lang)}>Run Code</button>
                     <input type="Submit" />
                 </form>
             </div>
