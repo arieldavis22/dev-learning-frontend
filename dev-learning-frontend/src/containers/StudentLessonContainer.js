@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Lesson from '../components/Lesson';
+import { findLessons } from '../services/lessons'
 
 class StudentLessonContainer extends Component {
     state = {  }
 
     componentDidMount() {
-        fetch("http://localhost:3000/find-lessons", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: this.props.classroomID
-            })
-        })
-        .then(r => r.json())
+        findLessons(this.props.classroomID)
         .then(data => {
             this.props.setClassroomLessons(data)
         })
@@ -37,7 +28,7 @@ class StudentLessonContainer extends Component {
         )
     }
     render() { 
-        console.log("ST CONTAINER:", this.props.classroomID)
+        // console.log("ST CONTAINER:", this.props.classroomID)
         return (  
             <div>
                 Lessons

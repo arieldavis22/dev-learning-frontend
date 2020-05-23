@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { editClassroom } from '../services/classrooms'
 
 class ClassroomEditForm extends Component {
     state = {  
@@ -20,16 +21,8 @@ class ClassroomEditForm extends Component {
 
     handleOnSubmit = event => {
         event.preventDefault()
-        fetch("http://localhost:3000/edit-classroom", {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(this.state)
-        })
-        .then(r => r.json())
-        .then(console.log)
+
+        editClassroom(this.state).then(console.log)
     }
     render() { 
         console.log("CLASSROOM EDIT:", this.state)

@@ -2,32 +2,23 @@ import React, { Component } from 'react';
 import ClassroomForm from '../components/ClassroomForm'
 import {connect} from 'react-redux'
 import Classroom from '../components/Classroom';
+import { allClassooms } from '../services/classrooms'
 class ClassroomContainer extends Component {
 
     state = {
         students: []
     }
 
+    componentDidMount() {
+        this.fetchAllClassrooms()
+    }
+
     fetchAllClassrooms = () => {
-        fetch("http://localhost:3000/all-classrooms", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                id: this.props.currentUser.id
-            })
-        })
-        .then(r => r.json())
+        allClassooms(this.props.currentUser.id)
         .then(classroomData => {
             console.log("CLASSROOM DATA", classroomData)
             this.props.setClassroom(classroomData)
         })
-    }
-
-    componentDidMount() {
-        this.fetchAllClassrooms()
     }
 
     setNameAndID = (name, id) => {

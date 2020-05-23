@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findStudentGPA } from '../services/users'
 
 class Student extends Component {
 
@@ -8,18 +9,7 @@ class Student extends Component {
 
     componentDidMount() {
         if(this.props.classroom_id) {
-            fetch("http://localhost:3000/find-student-gpa", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: "include",
-                body: JSON.stringify({
-                    classroom_id: this.props.classroom_id,
-                    student_id: this.props.id
-                })
-            })
-            .then(r => r.json())
+            findStudentGPA(this.props.classroom_id, this.props.id)
             .then(data => {
                 this.setState({
                     student_point_average: data

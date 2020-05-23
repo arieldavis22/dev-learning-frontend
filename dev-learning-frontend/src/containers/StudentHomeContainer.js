@@ -2,21 +2,12 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Classroom from '../components/Classroom'
 import { Virtuoso } from 'react-virtuoso'
+import { findAllStudentClassrooms } from '../services/users'
 
 class StudentHomeContainer extends Component {
     
     componentDidMount() {
-        fetch("http://localhost:3000/find-classrooms", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                student_id: this.props.currentUser.id
-            })
-        })
-        .then(r => r.json())
+        findAllStudentClassrooms(this.props.currentUser.id)
         .then(data => {
             this.props.setStudentClassrooms(data)
         })

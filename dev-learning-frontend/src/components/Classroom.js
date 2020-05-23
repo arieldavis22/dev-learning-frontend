@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Student from './Student';
 import Lesson from './Lesson';
 import FadeIn from 'react-fade-in';
+import { findStudents, findStudentGpa, removeStudent } from '../services/users'
+import { findLessons } from '../services/lessons'
 
 class Classroom extends Component {
     
@@ -14,79 +16,34 @@ class Classroom extends Component {
     }
 
     fetchAllStudents = () => {
-        fetch("http://localhost:3000/find-students", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: this.props.id
-            })
-        })
-        .then(r => r.json())
+        findStudents(this.props.id)
         .then(data => {
             this.setState({
                 studentsInClass: data.users
             })
-            console.log("CLASSROOM DAAATA",data)
         })
     }
 
     componentDidMount() {
         this.fetchAllStudents()
 
-        fetch("http://localhost:3000/find-lessons", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: this.props.id
-            })
-        })
-        .then(r => r.json())
+        findLessons(this.props.id)
         .then(data => {
             this.setState({
                 lessonsInClass: data
             })
         })
 
-        fetch("http://localhost:3000/find-student-gpa", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: this.props.id,
-                student_id: this.props.student_id
-            })
-        })
-        .then(r => r.json())
+        findStudentGpa(this.props.id, this.props.student_id)
         .then(data => {
             this.setState({
                 gpa: data
             })
         })
-
     }
 
     handleRemoveFromClassroom = id => {
-        fetch("http://localhost:3000/remove-student", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: this.props.id,
-                student_id: id
-            })
-        })
-        .then(r => r.json())
-        .then(() => this.fetchAllStudents())
+        removeStudent(this.props.id, id).then(() => this.fetchAllStudents())
     }
 
     handleSetLessonId = id => {

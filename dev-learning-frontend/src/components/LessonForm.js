@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { newLesson } from '../services/lessons'
 
 class LessonForm extends Component {
     state = {  
@@ -20,19 +21,11 @@ class LessonForm extends Component {
 
     handleOnSubmit = event => {
         event.preventDefault()
-        fetch("http://localhost:3000/newlesson", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(this.state)
-        })
-        .then(r => r.json())
-        .then(console.log)
+        newLesson(this.state).then(console.log)
     }
+
     render() { 
-        console.log(this.props)
+        // console.log(this.props)
         return (  
             <div>
                 <form onSubmit={this.handleOnSubmit}>

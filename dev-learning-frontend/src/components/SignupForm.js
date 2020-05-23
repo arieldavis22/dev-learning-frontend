@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FadeIn from 'react-fade-in';
+import { signup } from '../services/users'
 
 class SignupForm extends Component {
     state = {  
@@ -18,15 +19,8 @@ class SignupForm extends Component {
 
     handleOnSubmit = event => {
         event.preventDefault()
-        fetch("http://localhost:3000/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(this.state)
-        })
-        .then(r => r.json())
+
+        signup(this.state)
         .then(data => {
             console.log("SIGN UP:",data.data.attributes)
             this.props.setUser(data.data.attributes)

@@ -1,55 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Teacher from '../components/Teacher';
+import { findAllTeachers, allTeacherFollowing, followTeacher } from '../services/users'
 
 class TeacherFollowContainer extends Component {
     
     componentDidMount() {
-        fetch("http://localhost:3000/all-teachers", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-                teacher_id: this.props.currentUser.id
-            })
-        })
-        .then(r => r.json())
+        findAllTeachers(this.props.currentUser.id)
         .then(data => {
             this.props.setTeachers(data)
         })
 
-        fetch("http://localhost:3000/following", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                teacher_id: this.props.currentUser.id
-            })
-        })
-        .then(r => r.json())
+        allTeacherFollowing(this.props.currentUser.id)
         .then(data => {
             this.props.setFollowedTeachers(data)
         })
     }
 
     handleTeacherFollow = (id) => {
-        fetch("http://localhost:3000/follow", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                follower_id: this.props.currentUser.id,
-                followee_id: id
-            })
-        })
-        .then(r => r.json())
-        .then(console.log)
+        followTeacher(this.props.currentUser.id, id).then(console.log)
     }
 
     renderFollowedTeachers = () => {

@@ -1,42 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Report from '../components/Report';
+import { allReportsForLesson, removeReportForLesson } from '../services/lessons'
 
 
 class ReportContainer extends Component {
-
-    fetchReports = () => {
-        fetch("http://localhost:3000/reports-for-lesson", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                lesson_id: this.props.lessonID
-            })
-        })
-        .then(r => r.json())
-        .then(data => this.props.setReports(data))
-    }
 
     componentDidMount() {
         this.fetchReports()
     }
 
+    fetchReports = () => {
+        allReportsForLesson(this.props.lessonID)
+        .then(data => this.props.setReports(data))
+    }
+
     handleRemoveLesson = id => {
-        fetch("http://localhost:3000/delete-report", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                report_id: id
-            })
-        })
-        .then(r => r.json())
-        .then(() => this.fetchReports())
+        removeReportForLesson(id).then(() => this.fetchReports())
     }
 
     renderReports = () => {

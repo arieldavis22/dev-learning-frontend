@@ -3,79 +3,39 @@ import {connect} from 'react-redux'
 import Student from '../components/Student'
 import Lesson from '../components/Lesson';
 import ClassroomEditForm from '../components/ClassroomEditForm';
+import { allStudentsInClassroom } from '../services/users'
+import { allLessonsForTeacher } from '../services/lessons'
+import { addStudentToClassroom } from '../services/classrooms'
+import { addLessonToClassroom } from '../services/classrooms'
 
 class ClassroomEditContainer extends Component {
 
+    componentDidMount() {
+        this.fetchAllStudents()
+        this.fetchAllLessons()
+    }
+
     fetchAllStudents = () => {
-        fetch("http://localhost:3000/all-students", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: this.props.classroomID
-            })
-        })
-        .then(r => r.json())
+        allStudentsInClassroom(this.props.classroomID)
         .then(studentData => {
             this.props.setStudents(studentData)
         })
     }
 
     fetchAllLessons = () => {
-        fetch("http://localhost:3000/all-lessons", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                teacher_id: this.props.currentUser.id,
-                classroom_id: this.props.classroomID
-            })
-        })
-        .then(r => r.json())
+        allLessonsForTeacher(this.props.currentUser.id, this.props.classroomID)
         .then(lessonData => {
             this.props.setTeacherLessons(lessonData)
         })
     }
 
-    componentDidMount() {
-        this.fetchAllStudents()
-        this.fetchAllLessons()
-
-    }
-
     handleClick = (id) => {
-        fetch("http://localhost:3000/add-student", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: this.props.classroomID,
-                student_id: id
-            })
-        })
-        .then(r => r.json())
+        addStudentToClassroom(this.props.classroomID, id)
         .then(() => this.fetchAllStudents())
     }
 
     handleClickLesson = (id) => {
-        fetch("http://localhost:3000/lesson-classroom", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: this.props.classroomID,
-                lesson_id: id
-            })
-        })
-        .then(r => r.json())
+        addLessonToClassroom(this.props.classroomID, id)
         .then(() => this.fetchAllLessons())
     }
 

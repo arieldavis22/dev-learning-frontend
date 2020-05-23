@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { allTeacherLessons } from '../services/users'
 class Teacher extends Component {
     state = {  
         lessons: []
     }
 
     componentDidMount() {
-        fetch("http://localhost:3000/all-lessons", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                teacher_id: this.props.id
-            })
-        })
-        .then(r => r.json())
+        allTeacherLessons(this.props.id)
         .then(data => {
             this.setState({
                 lessons: data

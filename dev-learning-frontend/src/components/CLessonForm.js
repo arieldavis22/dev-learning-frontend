@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { checkCodeJudge, correctAnswerJudge, wrongAnswerJudge } from '../services/Judge0Api'
 
 
 class CLessonForm extends Component {
@@ -16,48 +17,21 @@ class CLessonForm extends Component {
 
     handleOnSubmit = (event) => {
         event.preventDefault()
-        fetch("http://localhost:3000/check-code", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(this.state)
-        })
-        .then(r => r.json())
+
+        checkCodeJudge(this.state)
         .then(data => {
             if(data.message === "Correct") {
+
                 alert("Correct Answer")
-                fetch("http://localhost:3000/correct", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        classroom_id: this.props.classroomID,
-                        student_id: this.props.student_id,
-                        points: this.props.points
-                    })
-                })
-                .then(r => r.json())
+                correctAnswerJudge(this.props.classroomID, this.props.student_id, this.props.points)
                 .then(console.log)
+
             } else {
+
                 alert("Incorrect Answer")
-                fetch("http://localhost:3000/wrong", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        classroom_id: this.props.classroomID,
-                        student_id: this.props.student_id,
-                        points: this.props.points
-                    })
-                })
-                .then(r => r.json())
+                wrongAnswerJudge(this.props.classroomID, this.props.student_id, this.props.points)
                 .then(console.log)
+                
             }
         })
     }

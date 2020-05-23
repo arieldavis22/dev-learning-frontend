@@ -3,22 +3,12 @@ import LessonForm from '../components/LessonForm';
 import {connect} from 'react-redux'
 import Lesson from '../components/Lesson';
 import { NavLink } from 'react-router-dom';
+import { allLessons } from '../services/lessons'
 
 class LessonsContainer extends Component {
-    state = {  }
 
     componentDidMount() {
-        fetch("http://localhost:3000/all-lessons", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                teacher_id: this.props.currentUser.id
-            })
-        })
-        .then(r => r.json())
+        allLessons(this.props.currentUser.id)
         .then(lessonData => {
             this.props.setTeacherLessons(lessonData)
         })

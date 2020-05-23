@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FadeIn from 'react-fade-in';
+import { editUser } from '../services/users'
 
 class EditUserContainer extends Component {
     state = {  
@@ -24,22 +25,14 @@ class EditUserContainer extends Component {
 
     handleOnSubmit = event => {
         event.preventDefault()
-        fetch("http://localhost:3000/edit-user", {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(this.state)
-        })
-        .then(r => r.json())
+        editUser(this.state)
         .then(data => {
             this.props.setUser(data)
         })
     }
 
     render() { 
-        console.log("EDIT USER STATE:", this.state)
+        // console.log("EDIT USER STATE:", this.state)
         return (  
             <div>
                 <FadeIn>

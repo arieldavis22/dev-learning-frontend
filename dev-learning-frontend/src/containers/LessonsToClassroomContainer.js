@@ -1,40 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Classroom from '../components/Classroom';
+import { allClassooms, addLessonToClassroom } from '../services/classrooms'
 
 class LessonsToClassroomContainer extends Component {
 
     componentDidMount() {
-        fetch("http://localhost:3000/all-classrooms", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                id: this.props.currentUser.id
-            })
-        })
-        .then(r => r.json())
+        allClassooms(this.props.currentUser.id)
         .then(data => {
             this.props.setAllClassrooms(data)
         })
     }
 
     handleLessonToClassroom = (id) => {
-        fetch("http://localhost:3000/lesson-classroom", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                classroom_id: id,
-                lesson_id: this.props.lessonID
-            })
-        })
-        .then(r => r.json())
-        .then(console.log)
+        addLessonToClassroom(id, this.props.lessonID).then(console.log)
     }
 
     renderClassrooms = () => {
@@ -50,7 +29,7 @@ class LessonsToClassroomContainer extends Component {
 
     
     render() { 
-        console.log("LESSONS TO CLASSROOM:", this.props.allClassrooms)
+        // console.log("LESSONS TO CLASSROOM:", this.props.allClassrooms)
         return (  
             <div>
                 all classrooms

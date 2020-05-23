@@ -4,6 +4,7 @@ import CLessonForm from '../components/CLessonForm';
 import FadeIn from 'react-fade-in';
 import IDEConsole from '../components/IDEConole';
 import ReportForm from '../components/ReportForm';
+import { testCodeJudge } from '../services/Judge0Api'
 
 class CLessonContainer extends Component {
 
@@ -12,20 +13,8 @@ class CLessonContainer extends Component {
     }
 
     handleCodeTest = (code, lesson_lang) => {
-        fetch("http://localhost:3000/test-code", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                code: code,
-                lesson_lang: lesson_lang
-            })
-        })
-        .then(r => r.json())
+        testCodeJudge(code, lesson_lang)
         .then(data => {
-            // debugger
             this.props.addToConsole(data)
         })
     }

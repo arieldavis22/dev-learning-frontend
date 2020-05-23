@@ -15,36 +15,17 @@ import LessonsToClassroomContainer from './containers/LessonsToClassroomContaine
 import EditUserContainer from './containers/EditUserContainer';
 import StackQuestionMenu from './components/StackQuestionMenu';
 import ReportContainer from './containers/ReportContainer';
+import { autologin, logout } from './services/users'
 
 class App extends Component {
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/autologin", {
-      credentials: 'include'
-    })
-    .then(r => {
-      if(r.ok) {
-        return r.json()
-      } else{
-        throw r
-      }
-    })
-    .then(data => {
-      // console.log("data is:", data)
-      this.props.setUser(data)
-    })
+    autologin().then(data => { this.props.setUser(data)})
     .catch(error => console.log(error))
   }
 
   logOut = () => {
-    fetch("http://localhost:3000/logout", {
-      method: "POST",
-      credentials: 'include'
-    })
-    .then(r => r.json())
-    .then(() => {
-      this.props.unsetUser()
-    })
+    logout().then(() => {this.props.unsetUser()})
   }
 
   render() {

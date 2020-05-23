@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Virtuoso } from 'react-virtuoso'
+import { searchStackAPI } from '../services/StackExchange'
 
 class StackQuestionMenu extends Component {
 
@@ -17,15 +18,8 @@ class StackQuestionMenu extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        fetch("http://localhost:3000/search-stack", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(this.state)
-        })
-        .then(r => r.json())
+
+        searchStackAPI(this.state)
         .then(data => this.props.setStackAnswers(data))
     }
 

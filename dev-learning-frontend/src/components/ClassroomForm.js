@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { newClassroom } from '../services/classrooms'
 
 class ClassroomForm extends Component {
     state = {
@@ -15,15 +16,8 @@ class ClassroomForm extends Component {
 
     handleOnSubmit = event => {
         event.preventDefault()
-        fetch("http://localhost:3000/new-classroom", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(this.state)
-        })
-        .then(r => r.json())
+
+        newClassroom(this.state)
         .then(classroomData => {
             this.props.fetchAllClassrooms()
             this.props.addClassroom(classroomData)
