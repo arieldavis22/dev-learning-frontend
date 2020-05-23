@@ -3,7 +3,8 @@ export default function lesson(state = {
     CLesson: {},
     lessonID: "",
     console: [],
-    lessonReports: []
+    lessonReports: [],
+    stackAnswers: []
 }, action) {
 
     switch(action.type) {
@@ -24,6 +25,9 @@ export default function lesson(state = {
 
         case "SET_LESSON_REPORTS":
             return {...state, lessonReports: action.report}
+        
+        case "SET_STACK_ANSWERS":
+            return {...state, stackAnswers: action.answers}
 
         default:
             return state

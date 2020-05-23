@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Classroom from '../components/Classroom'
+import { Virtuoso } from 'react-virtuoso'
 
 class StudentHomeContainer extends Component {
     
@@ -27,15 +28,20 @@ class StudentHomeContainer extends Component {
     
     renderClassrooms = () => {
         if(this.props.studentClassrooms) {
-            return this.props.studentClassrooms.map(classroom => {
+            return <Virtuoso 
+                style={{ width: '400px', height: '100px' }} 
+                totalCount={1} 
+                item={() => <div>
+                {this.props.studentClassrooms.map(classroom => {
                 return <Classroom 
-                key={classroom.id} 
-                id={classroom.id}
-                name={classroom.name} 
-                student={true}
-                setLessonState={this.setLessonState}
-                student_id={this.props.currentUser.id}/>
-            })
+                    key={classroom.id} 
+                    id={classroom.id}
+                    name={classroom.name} 
+                    student={true}
+                    setLessonState={this.setLessonState}
+                    student_id={this.props.currentUser.id}/>
+            })} 
+                </div>} />
         }
     }
 
