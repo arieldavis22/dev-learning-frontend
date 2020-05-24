@@ -5,6 +5,7 @@ import FadeIn from 'react-fade-in';
 import IDEConsole from '../components/IDEConole';
 import ReportForm from '../components/ReportForm';
 import { testCodeJudge } from '../services/Judge0Api'
+import PomodoroTimer from '../components/PomodoroTimer';
 
 class CLessonContainer extends Component {
 
@@ -47,6 +48,8 @@ class CLessonContainer extends Component {
 
                 <ReportForm
                 lesson_id={this.props.CLesson.id} />
+
+                <PomodoroTimer />
                 </FadeIn>
             </div>
         );
