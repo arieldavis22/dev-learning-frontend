@@ -13,7 +13,9 @@ const Lesson = ({
     handleOnClickLesson, 
     lesson, 
     report ,
-    handleSetLessonId
+    handleSetLessonId,
+    remove,
+    removeLesson
 }) => {
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -25,6 +27,7 @@ const Lesson = ({
         <div>
             <FadeIn>
             <h1>Lesson Name: {title}</h1>
+            {remove ? <Button onClick={() => removeLesson(id)} size='medium' content='Delete Lesson'/> : null}
             {report ? 
             <div>
                 <NavLink to='/reports' exact>

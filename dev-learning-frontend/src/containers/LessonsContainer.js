@@ -8,15 +8,34 @@ import { allLessons } from '../services/lessons'
 class LessonsContainer extends Component {
 
     componentDidMount() {
+        this.fetchLessons()
+    }
+
+    fetchLessons = () => {
         allLessons(this.props.currentUser.id)
         .then(lessonData => {
             this.props.setTeacherLessons(lessonData)
         })
     }
 
+    removeLesson = (id) => {
+        fetch("http://localhost:3000/remove-lesson", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                lesson_id: id
+            })
+        })
+        .then(r => r.json())
+        .then(() => this.fetchLessons())
+    }
+
     renderLessons = () => {
         return this.props.teacherLessons.map(lesson => 
-            <Lesson key={lesson.id} title={lesson.title}/>
+            <Lesson key={lesson.id} id={lesson.id} title={lesson.title} remove={true} removeLesson={this.removeLesson}/>
         )
     }
 
