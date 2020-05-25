@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Lesson from '../components/Lesson';
 import { findLessons } from '../services/lessons'
+import { Redirect } from 'react-router-dom';
+
 
 class StudentLessonContainer extends Component {
     state = {  }
@@ -31,6 +33,7 @@ class StudentLessonContainer extends Component {
         // console.log("ST CONTAINER:", this.props.classroomID)
         return (  
             <div>
+                {!this.props.currentUser ? <Redirect to="/" /> : null}
                 Lessons
                 {this.renderLessons()}
             </div>

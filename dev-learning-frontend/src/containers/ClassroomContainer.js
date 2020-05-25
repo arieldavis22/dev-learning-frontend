@@ -3,10 +3,20 @@ import ClassroomForm from '../components/ClassroomForm'
 import {connect} from 'react-redux'
 import Classroom from '../components/Classroom';
 import { allClassooms } from '../services/classrooms'
+import { Redirect } from 'react-router-dom';
+import { Container, Divider } from 'semantic-ui-react'
+import { Virtuoso } from 'react-virtuoso'
+
+
 class ClassroomContainer extends Component {
 
     state = {
         students: []
+    }
+
+    borderStyle = {
+        border: '5px dashed gray',
+        borderRadius: '4px',
     }
 
     componentDidMount() {
@@ -28,27 +38,38 @@ class ClassroomContainer extends Component {
 
 
     renderClassrooms = () => {
-        if(this.props.classroom) {
-            return this.props.classroom.map(classroom => <Classroom 
+        if(this.props.classroom && this.props.currentUser) {
+            return <Virtuoso 
+            style={{ width: '1050px', height: '500px'}} 
+            totalCount={1} 
+            item={() => <div>
+                {this.props.classroom.map(classroom => {
+                return <Classroom 
                 key={classroom.id} 
                 id={classroom.id}
                 name={classroom.name}
                 setInfo={this.setNameAndID}
-                render={true}/>)
-        }
+                render={true}/>
+                })}
+            </div> } />
     }
+}
 
 
     render() { 
-        console.log("ALL STUDENTS FOR EACH CLASS:", this.props.studentsInClass)
+        console.log("ALL STUDENTS FOR EACH CLASS:", this.props.classroom)
         return (  
             <div>
-                <ClassroomForm 
-                currentUser={this.props.currentUser}
-                addClassroom={this.props.addClassroom}
-                fetchAllClassrooms={this.fetchAllClassrooms}/>
-                {this.renderClassrooms()}
-                {this.state.students.map(student => <li>{student}</li>)}
+                {!this.props.currentUser ? <Redirect to="/" /> : null}
+                <Container textAlign='center'>
+                    <ClassroomForm 
+                    currentUser={this.props.currentUser}
+                    addClassroom={this.props.addClassroom}
+                    fetchAllClassrooms={this.fetchAllClassrooms}/>
+                    <Divider />
+                    {this.renderClassrooms()}
+                    {this.state.students.map(student => <li>{student}</li>)}
+                </Container>
             </div>
         );
     }

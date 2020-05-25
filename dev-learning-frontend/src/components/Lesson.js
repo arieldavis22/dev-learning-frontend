@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
 import FadeIn from 'react-fade-in';
+import { Divider, Button } from 'semantic-ui-react'
 
 
 const Lesson = ({ 
@@ -27,7 +28,9 @@ const Lesson = ({
             {report ? 
             <div>
                 <NavLink to='/reports' exact>
-                    <button onClick={() => handleSetLessonId(id)}>See Lesson Reports</button>
+                    {/* <button onClick={() => handleSetLessonId(id)}>See Lesson Reports</button> */}
+                    <Button onClick={() => handleSetLessonId(id)} icon='book' size='medium' content='See Lesson Reports'/>
+                    <Divider />
                 </NavLink>
             </div> 
             : null }

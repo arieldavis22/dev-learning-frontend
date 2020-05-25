@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FadeIn from 'react-fade-in';
 import { login } from '../services/users'
+import { Button, Container, Form } from 'semantic-ui-react'
+import '../App.css'
 
 class LoginForm extends Component {
     state = {  
@@ -16,24 +18,37 @@ class LoginForm extends Component {
 
     handleOnSubmit = event => {
         event.preventDefault()
-
         login(this.state)
         .then(data => {
-            console.log("logging in as:", data.data.attributes)
+            // console.log("logging in as:", data.data.attributes)
             this.props.setUser(data.data.attributes)
+            this.props.history.push('/')
         })
     }
     render() { 
-        // console.log(this.state)
+        console.log(this.props)
         return (  
             <div>
                 <FadeIn>
-                Login Teacher
-                <form onSubmit={this.handleOnSubmit}>
-                    <input type="text" name="email" onChange={this.handleOnChange} placeholder="Email"/><br/>
-                    <input type="text" name="password" onChange={this.handleOnChange} placeholder="Password"/><br/>
-                    <input type="submit"/>
-                </form>
+                <Container textAlign='center'>
+                    <Form onSubmit={this.handleOnSubmit}>
+                        <Form.Input 
+                        icon='user'
+                        iconPosition='left'
+                        type="text" 
+                        name="email" 
+                        onChange={this.handleOnChange} 
+                        placeholder="Email" />
+                        <Form.Input 
+                        icon='lock'
+                        iconPosition='left'
+                        type="text" 
+                        name="password" 
+                        onChange={this.handleOnChange} 
+                        placeholder="Password" />
+                        <Button type="submit">Log In</Button>
+                    </Form>
+                </Container>
                 </FadeIn>
             </div>
         );

@@ -6,6 +6,8 @@ import Lesson from './Lesson';
 import FadeIn from 'react-fade-in';
 import { findStudents, findStudentGpa, removeStudent } from '../services/users'
 import { findLessons } from '../services/lessons'
+import { Virtuoso } from 'react-virtuoso'
+import { Divider, Button } from 'semantic-ui-react'
 
 class Classroom extends Component {
     
@@ -67,14 +69,19 @@ class Classroom extends Component {
     }
 
     renderLessons = () => {
-        return this.state.lessonsInClass.map(lesson => 
-            <Lesson 
+        return <Virtuoso 
+            style={{ width: '1046px', height: '200px', border: '5px dashed gray', borderRadius: '4px' }} 
+            totalCount={1} 
+            item={() => <div>
+            {this.state.lessonsInClass.map(lesson => {
+            return <Lesson 
             key={lesson.id} 
             id={lesson.id}
             title={lesson.title} 
             report={true}
             handleSetLessonId={this.handleSetLessonId}/>
-        )
+        })}
+        </div> } />
     }
 
 
@@ -102,7 +109,8 @@ class Classroom extends Component {
             <div>
                 <p>Grade: {this.state.gpa} </p>
                 <NavLink to="/classroom-lesson" exact>
-                    <button onClick={() => setLessonState(id)}>Check Lessons</button>
+                    {/* <button onClick={() => setLessonState(id)}>Check Lessons</button> */}
+                    <Button onClick={() => setLessonState(id)} icon='book' size='big' content='Check Lessons'/>
                 </NavLink>
             </div>
             :
@@ -111,8 +119,10 @@ class Classroom extends Component {
             {render ?
                 <div>
                 <NavLink to="/editclassroom" exact>
-                    <button onClick={() => setInfo(name, id)}>Edit Classroom/Add Student/Lesson</button>
+                    {/* <button onClick={() => setInfo(name, id)}>Edit Classroom/Add Student/Lesson</button> */}
+                    <Button onClick={() => setInfo(name, id)} icon='book' size='big' content='Edit Classroom/Add Student/Lesson'/>
                 </NavLink>
+                <Divider />
             </div>
             :
             null}

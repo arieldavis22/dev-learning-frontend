@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FadeIn from 'react-fade-in';
 import { signup } from '../services/users'
+import { Button, Container, Form, } from 'semantic-ui-react'
 
 class SignupForm extends Component {
     state = {  
@@ -31,19 +32,19 @@ class SignupForm extends Component {
         return (  
             <div>
                 <FadeIn>
-                Signup
-                <form onSubmit={this.handleOnSubmit}>
-                    <input type="text" name="first_name" placeholder="First Name" onChange={this.handleOnChange} /> <br/>
-                    <input type="text" name="last_name" placeholder="Last Name" onChange={this.handleOnChange} /> <br/>
-                    <input type="text" name="email" placeholder="Email" onChange={this.handleOnChange} /> <br/>
-                    <input type="text" name="password" placeholder="Password" onChange={this.handleOnChange} /> <br/>
-                    <input type="text" placeholder="Password Confirm" /> <br/>
-                    <input type="radio" id="teachChoice" name="role" value="Teacher" onChange={this.handleOnChange} />
-                    <label htmlFor="teachChoice">Teacher</label>
-                    <input type="radio" id="studChoice"name="role" value="Student" onChange={this.handleOnChange} />
-                    <label htmlFor="studChoice">Student</label>
-                    <input type="submit" />
-                </form>
+                <Container textAlign='center'>
+                    <Form onSubmit={this.handleOnSubmit}>
+                        <Form.Input icon="user outline" iconPosition='left' type="text" name="first_name" placeholder="First Name" onChange={this.handleOnChange}/>
+                        <Form.Input icon="user outline" iconPosition='left' type="text" name="last_name" placeholder="Last Name" onChange={this.handleOnChange}/>
+                        <Form.Input icon="envelope outline" iconPosition='left' type="text" name="email" placeholder="Email" onChange={this.handleOnChange}/>
+                        <Form.Input icon='lock' iconPosition='left' type="text" name="password" placeholder="Password" onChange={this.handleOnChange}/>
+                        <Form.Input icon='lock' iconPosition='left'type="text" placeholder="Password Confirm"/>
+                        <label>Teacher Or Student</label>
+                        <Form.Radio type="radio" label="Teacher" id="teachChoice" name="role" value="Teacher" onChange={this.handleOnChange}/>
+                        <Form.Radio type="radio" label="Student" id="studChoice"name="role" value="Student" onChange={this.handleOnChange}/>
+                        <Button type="submit">Signup</Button>
+                    </Form>
+                </Container>
                 </FadeIn>
             </div>
         );

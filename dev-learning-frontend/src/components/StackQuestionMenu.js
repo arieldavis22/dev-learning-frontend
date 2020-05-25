@@ -40,8 +40,8 @@ class StackQuestionMenu extends Component {
     }
     render() { 
         return (  
-            <Menu vertical position='right' fixed='right'>
-                <Menu.Item positon='right'>
+            <Menu vertical position='right' fixed='right' >
+                <Menu.Item positon='right' style={{width: "400px"}}>
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Input icon='search' placeholder='Search...' onChange={this.handleChange} />
                     </Form>

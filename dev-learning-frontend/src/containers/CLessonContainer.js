@@ -7,6 +7,7 @@ import ReportForm from '../components/ReportForm';
 import { testCodeJudge } from '../services/Judge0Api'
 import PomodoroTimer from '../components/PomodoroTimer';
 
+
 class CLessonContainer extends Component {
 
     componentDidMount() {
@@ -31,6 +32,7 @@ class CLessonContainer extends Component {
         const { title, description, boilerplate, return_value, points, deadline } = this.props.CLesson
         return (  
             <div>
+                {!this.props.currentUser ? this.props.history.push('/') : null}
                 <FadeIn>
                 <h1>{title}</h1>
                 <p>{description}</p>

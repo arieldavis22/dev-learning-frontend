@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Home from './components/Home';
 import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import NavBar from './components/NavBar';
 import {connect} from 'react-redux'
 import ClassroomContainer from './containers/ClassroomContainer';
@@ -25,11 +25,13 @@ class App extends Component {
   }
 
   logOut = () => {
-    logout().then(() => {this.props.unsetUser()})
+    logout().then(() => {
+      this.props.unsetUser()
+      return <Redirect to='/' />
+    })
   }
 
   render() {
-    console.log("state is:", this.props)
     return (
       <div >
         <NavBar currentUser={this.props.currentUser} logOut={this.logOut}/>
