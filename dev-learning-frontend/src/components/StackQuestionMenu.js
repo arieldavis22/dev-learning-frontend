@@ -3,6 +3,7 @@ import { Form, Menu, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Virtuoso } from 'react-virtuoso'
 import { searchStackAPI } from '../services/StackExchange'
+import Toast from 'light-toast';
 
 class StackQuestionMenu extends Component {
 
@@ -18,9 +19,12 @@ class StackQuestionMenu extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-
+        Toast.loading('Loading')
         searchStackAPI(this.state)
-        .then(data => this.props.setStackAnswers(data))
+        .then(data => {
+            this.props.setStackAnswers(data)
+            Toast.hide()
+        })
     }
 
     renderMenuItems = () => {
@@ -32,8 +36,8 @@ class StackQuestionMenu extends Component {
                 {this.props.stackAnswers.items.map(answer => {
                 return <div className={this.props.menu ? 'search' : null} key={answer.question_id}>
                     <h3>{answer.title}</h3>
-                    <p>{answer.link}</p>
-                    <a href={answer.link}>Stack Post</a>
+                    {/* <p>{answer.link}</p> */}
+                    <a href={answer.link} target="_blank" rel="noopener noreferrer">Stack Post</a>
                     <Divider/>
                 </div>
             })}

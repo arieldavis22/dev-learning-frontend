@@ -3,6 +3,8 @@ import { checkCodeJudge, correctAnswerJudge, wrongAnswerJudge } from '../service
 import { Button, Form } from 'semantic-ui-react'
 import '../IDE.css'
 import { connect } from 'react-redux';
+import Toast from 'light-toast';
+import { toast } from 'react-toastify';
 
 
 class CLessonForm extends Component {
@@ -18,24 +20,42 @@ class CLessonForm extends Component {
         })
     }
 
+    notifyCorrect = () => {
+        toast.success("Answer Correct", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
+    notifyWrong = () => {
+        toast.error("Answer Wrong", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     handleOnSubmit = (event) => {
         event.preventDefault()
-
+        Toast.loading('Loading')
         checkCodeJudge(this.state)
         .then(data => {
             if(data.message === "Correct") {
 
-                alert("Correct Answer")
+                // alert("Correct Answer")
                 correctAnswerJudge(this.props.classroomID, this.props.student_id, this.props.points)
                 .then(() => {
+                    Toast.hide()
+                    this.notifyCorrect()
                     this.props.history.push('/')
                 })
 
             } else {
 
-                alert("Incorrect Answer")
+                // alert("Incorrect Answer")
                 wrongAnswerJudge(this.props.classroomID, this.props.student_id, this.props.points)
-                .then(console.log)
+                .then(() => {
+                    Toast.hide()
+                    this.notifyWrong()
+                    this.props.history.push('/')
+                })
                 
             }
         })
@@ -51,11 +71,6 @@ class CLessonForm extends Component {
                     <Button type='button' onClick={() => this.props.handleCodeTest(this.state.code, this.state.lesson_lang)}>Test Code</Button>
                     <Button color={this.props.menu ? 'purple' : null} type='submit'>Turn in Lesson</Button>
                 </Form>
-                {/* <form onSubmit={this.handleOnSubmit}>
-                    <textarea name="code" onChange={this.handleOnChange} placeholder={this.props.boilerplate} />
-                    <button type="button" onClick={() => this.props.handleCodeTest(this.state.code, this.state.lesson_lang)}>Run Code</button>
-                    <input type="Submit" />
-                </form> */}
             </div>
         );
     }
