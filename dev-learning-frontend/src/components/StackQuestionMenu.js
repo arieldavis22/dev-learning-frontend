@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Menu } from 'semantic-ui-react'
+import { Form, Menu, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Virtuoso } from 'react-virtuoso'
 import { searchStackAPI } from '../services/StackExchange'
@@ -30,9 +30,11 @@ class StackQuestionMenu extends Component {
             totalCount={1} 
             item={() => <div>
                 {this.props.stackAnswers.items.map(answer => {
-                return <div key={answer.question_id}>
+                return <div className={this.props.menu ? 'search' : null} key={answer.question_id}>
                     <h3>{answer.title}</h3>
                     <p>{answer.link}</p>
+                    <a href={answer.link}>Stack Post</a>
+                    <Divider/>
                 </div>
             })}
             </div>} />
@@ -40,7 +42,7 @@ class StackQuestionMenu extends Component {
     }
     render() { 
         return (  
-            <Menu vertical position='right' fixed='right' >
+            <Menu inverted={this.props.menu} vertical position='right' fixed='right' >
                 <Menu.Item positon='right' style={{width: "400px"}}>
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Input icon='search' placeholder='Search...' onChange={this.handleChange} />
@@ -53,6 +55,7 @@ class StackQuestionMenu extends Component {
 }
 const mapStateToProps = state => ({
     stackAnswers: state.lesson.stackAnswers,
+    menu: state.app.menu
 })
 
 const mapDispatchToProps = dispatch => ({

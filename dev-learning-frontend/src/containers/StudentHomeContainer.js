@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import Classroom from '../components/Classroom'
 import { Virtuoso } from 'react-virtuoso'
 import { findAllStudentClassrooms } from '../services/users'
+import FadeIn from 'react-fade-in';
+import { Container } from 'semantic-ui-react'
 
 class StudentHomeContainer extends Component {
     
@@ -20,7 +22,7 @@ class StudentHomeContainer extends Component {
     renderClassrooms = () => {
         if(this.props.studentClassrooms) {
             return <Virtuoso 
-                style={{ width: '400px', height: '100px' }} 
+                style={{ width: '1050px', height: '300px' }} 
                 totalCount={1} 
                 item={() => <div>
                 {this.props.studentClassrooms.map(classroom => {
@@ -39,8 +41,12 @@ class StudentHomeContainer extends Component {
     render() { 
         return (  
             <div>
-                <h1>All Classrooms</h1>
-                {this.renderClassrooms()}
+                <FadeIn>
+                    <Container textAlign='center'>
+                        <h1>All Classrooms</h1>
+                        {this.renderClassrooms()}
+                    </Container>
+                </FadeIn>
             </div>
         );
     }

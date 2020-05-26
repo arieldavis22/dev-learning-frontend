@@ -108,9 +108,8 @@ class Classroom extends Component {
             {student ?  
             <div>
                 <p>Grade: {this.state.gpa} </p>
-                <NavLink to="/classroom-lesson" exact>
-                    {/* <button onClick={() => setLessonState(id)}>Check Lessons</button> */}
-                    <Button onClick={() => setLessonState(id)} icon='book' size='big' content='Check Lessons'/>
+                <NavLink to="/classroom-lesson" exact> {/* eslint-disable-next-line */}
+                    <Button color={this.props.menu ? 'purple' : null} onClick={() => setLessonState(id)} color={this.props.menu ? 'purple' : null} icon='book' size='big' content='Check Lessons'/>
                 </NavLink>
             </div>
             :
@@ -120,7 +119,7 @@ class Classroom extends Component {
                 <div>
                 <NavLink to="/editclassroom" exact>
                     {/* <button onClick={() => setInfo(name, id)}>Edit Classroom/Add Student/Lesson</button> */}
-                    <Button onClick={() => setInfo(name, id)} icon='book' size='big' content='Edit Classroom/Add Student/Lesson'/>
+                    <Button color={this.props.menu ? 'purple' : null} onClick={() => setInfo(name, id)} icon='book' size='big' content='Edit Classroom/Add Student/Lesson'/>
                 </NavLink>
                 <Divider />
             </div>
@@ -135,7 +134,8 @@ class Classroom extends Component {
 const mapStateToProps = state => ({
     studentsInClassroom: state.student.studentsInClassroom,
     classroomLessons: state.classroom.classroomLessons,
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    menu: state.app.menu
 })
 
 const mapDispatchToProps = dispatch => ({

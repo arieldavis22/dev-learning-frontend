@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class NavBar extends Component {
     state = {}
@@ -14,10 +15,10 @@ class NavBar extends Component {
     render() { 
         const { activeItem } = this.state
         return (  
-            <Menu style={{height: '70px'}}>
+            <Menu inverted={this.props.menu} style={{height: '70px'}}>
                 <Menu.Item>
                 <img 
-                    src={require('../images/logo/logo-light.png')} 
+                    src={require(`../images/logo/${this.props.logo}`)} 
                     alt="logo-light" 
                     style={this.imgStyle}
                     />
@@ -93,5 +94,10 @@ class NavBar extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    logo: state.app.logo,
+    menu: state.app.menu
+})
 
-export default NavBar;
+
+export default connect(mapStateToProps)(NavBar);

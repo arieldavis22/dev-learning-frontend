@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom'
 import FadeIn from 'react-fade-in';
 import { Divider, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 
 const Lesson = ({ 
@@ -15,7 +16,8 @@ const Lesson = ({
     report ,
     handleSetLessonId,
     remove,
-    removeLesson
+    removeLesson,
+    menu
 }) => {
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -27,12 +29,15 @@ const Lesson = ({
         <div>
             <FadeIn>
             <h1>Lesson Name: {title}</h1>
-            {remove ? <Button onClick={() => removeLesson(id)} size='medium' content='Delete Lesson'/> : null}
+            {remove ? 
+            <div>
+                <Button color={menu ? 'purple' : null} onClick={() => removeLesson(id)} size='medium' content='Delete Lesson'/>
+                <Divider/>
+            </div> : null}
             {report ? 
             <div>
                 <NavLink to='/reports' exact>
-                    {/* <button onClick={() => handleSetLessonId(id)}>See Lesson Reports</button> */}
-                    <Button onClick={() => handleSetLessonId(id)} icon='book' size='medium' content='See Lesson Reports'/>
+                    <Button color={menu ? 'purple' : null} onClick={() => handleSetLessonId(id)} icon='book' size='medium' content='See Lesson Reports'/>
                     <Divider />
                 </NavLink>
             </div> 
@@ -59,4 +64,8 @@ const Lesson = ({
     );
 }
 
-export default Lesson;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+
+export default connect(mapStateToProps)(Lesson);

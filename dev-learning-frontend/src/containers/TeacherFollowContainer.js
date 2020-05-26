@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Teacher from '../components/Teacher';
 import { findAllTeachers, allTeacherFollowing, followTeacher } from '../services/users'
+import { Container, Divider } from 'semantic-ui-react'
+import { Virtuoso } from 'react-virtuoso'
+import FadeIn from 'react-fade-in';
 
 class TeacherFollowContainer extends Component {
     
@@ -23,49 +26,65 @@ class TeacherFollowContainer extends Component {
 
     renderFollowedTeachers = () => {
         if(this.props.followedTeachers.data) {
-            return this.props.followedTeachers.data.map(teacher => 
-                <Teacher 
-                key={teacher.attributes.id} 
-                id={teacher.attributes.id}
-                first_name={teacher.attributes.first_name} 
-                last_name={teacher.attributes.last_name}
-                follow={true}/>
-            )
-        }
-    }
-
-    renderTeachers = () => {
-        if(this.props.allTeachers.data && this.props.followedTeachers.data) {// eslint-disable-next-line
-            return this.props.allTeachers.data.map(teacher => {
-                if(teacher.attributes.id !== this.props.currentUser.id) {
+            return <Virtuoso 
+            style={{ width: '1050px', height: '200px'}} 
+            totalCount={1} 
+            item={() => <div>
+                {this.props.followedTeachers.data.map(teacher =>{
                     return <Teacher 
                     key={teacher.attributes.id} 
                     id={teacher.attributes.id}
                     first_name={teacher.attributes.first_name} 
                     last_name={teacher.attributes.last_name}
-                    notFollowed={true}
-                    handleTeacherFollow={this.handleTeacherFollow}/>
-                }
-            })
+                    follow={true}/>
+                })}
+            </div>}/>
+        }
+    }
+
+    renderTeachers = () => {
+        if(this.props.allTeachers.data && this.props.followedTeachers.data) {
+            return <Virtuoso 
+            style={{ width: '1050px', height: '200px'}} 
+            totalCount={1} 
+            item={() => <div> {/* eslint-disable-next-line */}
+                {this.props.allTeachers.data.map(teacher => {
+                    if(teacher.attributes.id !== this.props.currentUser.id) {
+                        return <Teacher 
+                        key={teacher.attributes.id} 
+                        id={teacher.attributes.id}
+                        first_name={teacher.attributes.first_name} 
+                        last_name={teacher.attributes.last_name}
+                        notFollowed={true}
+                        handleTeacherFollow={this.handleTeacherFollow}/>
+                    }
+                })}
+            </div>}/>
         }
     }
     render() { 
         console.log("TEAHER FOLLOW:", this.props.followedTeachers)
         console.log("Teacher NOT FOLLOWED:", this.props.allTeachers)
+        // console.log(this.props.currentUser)
         return (  
             <div>
-                Teacher Follow
-                <h1>Following</h1>
-                {this.renderFollowedTeachers()}
-                <h1>All Teachers</h1>
-                {this.renderTeachers()}
+                <FadeIn>
+                    <Container textAlign='center'>
+                        <h1>Following</h1>
+                        {this.renderFollowedTeachers()}
+                        <Divider />
+                        <h1>All Teachers</h1>
+                        {this.renderTeachers()}
+                    </Container>
+                </FadeIn>
             </div>
         );
     }
 }
 const mapStateToProps = state => ({
     allTeachers: state.teacher.allTeachers,
-    followedTeachers: state.teacher.followedTeachers
+    followedTeachers: state.teacher.followedTeachers,
+    currentUser: state.user.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

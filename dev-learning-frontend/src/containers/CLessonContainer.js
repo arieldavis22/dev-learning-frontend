@@ -6,6 +6,7 @@ import IDEConsole from '../components/IDEConole';
 import ReportForm from '../components/ReportForm';
 import { testCodeJudge } from '../services/Judge0Api'
 import PomodoroTimer from '../components/PomodoroTimer';
+import { Container, Grid } from 'semantic-ui-react';
 
 
 class CLessonContainer extends Component {
@@ -34,24 +35,38 @@ class CLessonContainer extends Component {
             <div>
                 {!this.props.currentUser ? this.props.history.push('/') : null}
                 <FadeIn>
-                <h1>{title}</h1>
-                <p>{description}</p>
-                <h5>Points worth: {points}</h5>
-                <h5>Deadline: {deadline}</h5>
-                <CLessonForm 
-                boilerplate={boilerplate} 
-                return_value={return_value} 
-                points={points}
-                classroomID={this.props.classroomID}
-                student_id={this.props.currentUser.id}
-                handleCodeTest={this.handleCodeTest}
-                lesson_lang={this.props.CLesson.language}/>
-                {this.renderConsoleLog()}
+                    <Grid columns={2} divided>
 
-                <ReportForm
-                lesson_id={this.props.CLesson.id} />
+                        <Grid.Column width={7}>
+
+                            <Container textAlign='left'>
+                                <h1>{title}</h1>
+                                <p>{description}</p>
+                                <h5>Points worth: {points}</h5>
+                                <h5>Deadline: {deadline}</h5>
+                            </Container>
+
+                        </Grid.Column>
+                        <Grid.Column>
+                        <Container textAlign='right'>
+                            <CLessonForm 
+                            boilerplate={boilerplate} 
+                            return_value={return_value} 
+                            points={points}
+                            classroomID={this.props.classroomID}
+                            student_id={this.props.currentUser.id}
+                            handleCodeTest={this.handleCodeTest}
+                            lesson_lang={this.props.CLesson.language}
+                            history={this.props.history}/>
+                            {this.renderConsoleLog()}
+                        </Container>
+                        </Grid.Column>
+                    </Grid>
 
                 <PomodoroTimer />
+
+                <h2>Report This Lesson</h2>
+                <ReportForm lesson_id={this.props.CLesson.id} />
                 </FadeIn>
             </div>
         );

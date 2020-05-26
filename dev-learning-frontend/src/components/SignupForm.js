@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FadeIn from 'react-fade-in';
 import { signup } from '../services/users'
 import { Button, Container, Form, } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class SignupForm extends Component {
     state = {  
@@ -42,7 +43,7 @@ class SignupForm extends Component {
                         <label>Teacher Or Student</label>
                         <Form.Radio type="radio" label="Teacher" id="teachChoice" name="role" value="Teacher" onChange={this.handleOnChange}/>
                         <Form.Radio type="radio" label="Student" id="studChoice"name="role" value="Student" onChange={this.handleOnChange}/>
-                        <Button type="submit">Signup</Button>
+                        <Button color={this.props.menu ? 'purple' : null} type="submit">Signup</Button>
                     </Form>
                 </Container>
                 </FadeIn>
@@ -50,5 +51,7 @@ class SignupForm extends Component {
         );
     }
 }
-
-export default SignupForm;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+export default connect(mapStateToProps)(SignupForm);

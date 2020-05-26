@@ -1,0 +1,16 @@
+.ui.form .IDE textarea {
+    margin: 0;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    padding: .78571429em 1em;
+    background: rgb(0, 0, 0);
+    border: 1px solid rgba(34,36,38,.15);
+    outline: 0;
+    color: rgb(255, 255, 255);
+    border-radius: .28571429rem;
+    box-shadow: 0 0 0 0 transparent inset;
+    transition: color .1s ease,border-color .1s ease;
+    font-size: 1em;
+    line-height: 1.2857;
+    resize: vertical;
+}

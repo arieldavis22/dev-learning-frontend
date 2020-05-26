@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+
 
 
 class TeacherHomeContainer extends Component {
@@ -8,19 +10,23 @@ class TeacherHomeContainer extends Component {
         return (  
             <div>
                 <NavLink to="/classroom" exact>
-                    <Button icon='book' size='massive' content='Classrooms'/>
+                    <Button color={this.props.menu ? 'purple' : null} icon='book' size='massive' content='Classrooms'/>
                 </NavLink><br />
                 <br/>
                 <NavLink to="/lessons" exact>
-                    <Button icon='file' size='massive' content='Lessons'/>
+                    <Button color={this.props.menu ? 'purple' : null} icon='file' size='massive' content='Lessons'/>
                 </NavLink><br />
                 <br/>
                 <NavLink to="/teacher-follow" exact>
-                    <Button icon='user' size='massive' content='See Following'/>
+                    <Button color={this.props.menu ? 'purple' : null} icon='user' size='massive' content='See Following'/>
                 </NavLink>
             </div>
         );
     }
 }
 
-export default TeacherHomeContainer;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+
+export default connect(mapStateToProps)(TeacherHomeContainer);

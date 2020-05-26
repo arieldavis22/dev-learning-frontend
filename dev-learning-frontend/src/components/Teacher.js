@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { allTeacherLessons } from '../services/users'
+import { Divider } from 'semantic-ui-react'
 class Teacher extends Component {
     state = {  
         lessons: []
@@ -29,17 +30,22 @@ class Teacher extends Component {
                 <div>
                     {this.state.lessons.map(lesson => 
                     <div>
-                        <h3>{lesson.title}</h3>
-                        <p>{lesson.description}</p>
+                        <h3>Title: {lesson.title}</h3>
+                        <p>Description: {lesson.description}</p>
                         <NavLink to="/add-lesson" exact>
                             <button onClick={() => this.handleID(lesson.id)}>Add Lesson</button>
                         </NavLink>
                     </div>
                     )}
+                    <Divider/>
                 </div> 
                 : 
                 null}
-                {notFollowed ? <button onClick={() => handleTeacherFollow(id)}>Follow</button> : null }
+                {notFollowed ? 
+                <div>
+                    <button onClick={() => handleTeacherFollow(id)}>Follow</button>
+                    <Divider/>
+                </div> : null }
             </div>
         );
     }

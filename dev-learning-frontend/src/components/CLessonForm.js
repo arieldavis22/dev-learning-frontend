@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { checkCodeJudge, correctAnswerJudge, wrongAnswerJudge } from '../services/Judge0Api'
+import { Button, Form } from 'semantic-ui-react'
+import '../IDE.css'
+import { connect } from 'react-redux';
 
 
 class CLessonForm extends Component {
@@ -24,7 +27,9 @@ class CLessonForm extends Component {
 
                 alert("Correct Answer")
                 correctAnswerJudge(this.props.classroomID, this.props.student_id, this.props.points)
-                .then(console.log)
+                .then(() => {
+                    this.props.history.push('/')
+                })
 
             } else {
 
@@ -41,14 +46,23 @@ class CLessonForm extends Component {
         console.log(this.state)
         return (  
             <div>
-                <form onSubmit={this.handleOnSubmit}>
+                <Form onSubmit={this.handleOnSubmit}>
+                    <Form.TextArea className="IDE" style={{width: '450px', height: '600px'}} name="code" onChange={this.handleOnChange} placeholder={this.props.boilerplate} />
+                    <Button type='button' onClick={() => this.props.handleCodeTest(this.state.code, this.state.lesson_lang)}>Test Code</Button>
+                    <Button color={this.props.menu ? 'purple' : null} type='submit'>Turn in Lesson</Button>
+                </Form>
+                {/* <form onSubmit={this.handleOnSubmit}>
                     <textarea name="code" onChange={this.handleOnChange} placeholder={this.props.boilerplate} />
                     <button type="button" onClick={() => this.props.handleCodeTest(this.state.code, this.state.lesson_lang)}>Run Code</button>
                     <input type="Submit" />
-                </form>
+                </form> */}
             </div>
         );
     }
 }
 
-export default CLessonForm;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+
+export default connect(mapStateToProps)(CLessonForm);

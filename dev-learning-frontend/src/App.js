@@ -16,6 +16,9 @@ import EditUserContainer from './containers/EditUserContainer';
 import StackQuestionMenu from './components/StackQuestionMenu';
 import ReportContainer from './containers/ReportContainer';
 import { autologin, logout } from './services/users'
+import './index.css'
+import {Helmet} from 'react-helmet';
+import ToggleDarkMode from './components/DarkModeToggle';
 
 class App extends Component {
 
@@ -34,8 +37,12 @@ class App extends Component {
   render() {
     return (
       <div >
+          <Helmet>
+            <style>{`body { background-color: ${this.props.background}; }`}</style>
+          </Helmet>
         <NavBar currentUser={this.props.currentUser} logOut={this.logOut}/>
         <StackQuestionMenu />
+        <ToggleDarkMode />
         <Switch>
 
           <Route exact path="/" 
@@ -129,6 +136,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
+  background: state.app.background
 })
 
 const mapDispatchToProps = dispatch => ({

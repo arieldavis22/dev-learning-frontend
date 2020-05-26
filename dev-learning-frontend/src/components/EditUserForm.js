@@ -50,28 +50,16 @@ class EditUserForm extends Component {
                         name="last_name" 
                         placeholder={this.props.currentUser.last_name} 
                         onChange={this.handleOnChange} />
-                    <Button type='submit'>Change Name</Button>
+                    <Button color={this.props.menu ? 'purple' : null} type='submit'>Change Name</Button>
                 </Form>
-                {/* <form onSubmit={this.handleOnSubmit}>
-                    <input 
-                    type="text" 
-                    name="first_name" 
-                    placeholder={this.props.currentUser.first_name} 
-                    onChange={this.handleOnChange} />
-                    <input 
-                    type="text" 
-                    name="last_name" 
-                    placeholder={this.props.currentUser.last_name} 
-                    onChange={this.handleOnChange} />
-                    <input type="submit" />
-                </form> */}
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    menu: state.app.menu
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -3,6 +3,7 @@ import FadeIn from 'react-fade-in';
 import { login } from '../services/users'
 import { Button, Container, Form } from 'semantic-ui-react'
 import '../App.css'
+import { connect } from 'react-redux';
 
 class LoginForm extends Component {
     state = {  
@@ -46,7 +47,7 @@ class LoginForm extends Component {
                         name="password" 
                         onChange={this.handleOnChange} 
                         placeholder="Password" />
-                        <Button type="submit">Log In</Button>
+                        <Button color={this.props.menu ? 'purple' : null} type="submit">Log In</Button>
                     </Form>
                 </Container>
                 </FadeIn>
@@ -55,4 +56,8 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+
+export default connect(mapStateToProps)(LoginForm);

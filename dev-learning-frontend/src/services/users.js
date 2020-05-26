@@ -171,7 +171,7 @@ export function findAllTeachers(teacher_id) {
         },
         credentials: 'include',
         body: JSON.stringify({
-            teacher_id: this.props.currentUser.id
+            teacher_id: teacher_id
         })
     })
     .then(r => r.json())

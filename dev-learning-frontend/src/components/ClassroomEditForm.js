@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { editClassroom } from '../services/classrooms'
+import { Button, Form } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class ClassroomEditForm extends Component {
     state = {  
@@ -28,13 +30,21 @@ class ClassroomEditForm extends Component {
         console.log("CLASSROOM EDIT:", this.state)
         return (  
             <div>
-                <form onSubmit={this.handleOnSubmit}>
+                <Form onSubmit={this.handleOnSubmit}>
+                    <Form.Input type="text" name="name" placeholder="Enter New Name" onChange={this.handleOnChange} />
+                    <Button color={this.props.menu ? 'purple' : null} type='submit'>Change Classroom Name</Button>
+                </Form>
+                {/* <form onSubmit={this.handleOnSubmit}>
                     <input type="text" name="name" placeholder="Enter New Name" onChange={this.handleOnChange} />
                     <input type="submit" />
-                </form>
+                </form> */}
             </div>
         );
     }
 }
 
-export default ClassroomEditForm;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+
+export default connect(mapStateToProps)(ClassroomEditForm);

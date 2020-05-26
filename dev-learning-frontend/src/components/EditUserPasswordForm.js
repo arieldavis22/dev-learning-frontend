@@ -36,21 +36,16 @@ class EditUserPasswordForm extends Component {
                     <Form.Input icon='lock' iconPosition='left' type="text" name="currentPassword" placeholder="Current Password" onChange={this.handleChange}/>
                     <Form.Input icon='lock' iconPosition='left' type="text" name="newPassword" placeholder="New Password" onChange={this.handleChange}/>
                     <Form.Input icon='lock' iconPosition='left' type="text" name="newPasswordConfirm" placeholder="Confirm New Password" onChange={this.handleChange} />
-                    <Button type="submit">Change Password</Button>
+                    <Button color={this.props.menu ? 'purple' : null} type="submit">Change Password</Button>
                 </Form>
-                {/* <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="currentPassword" placeholder="Current Password" onChange={this.handleChange} />
-                    <input type="text" name="newPassword" placeholder="New Password" onChange={this.handleChange} />
-                    <input type="text" name="newPasswordConfirm" placeholder="Confirm New Password" onChange={this.handleChange} />
-                    <input type="submit" />
-                </form> */}
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    menu: state.app.menu
 })
 
 export default connect(mapStateToProps)(EditUserPasswordForm);

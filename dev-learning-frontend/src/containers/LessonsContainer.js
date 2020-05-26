@@ -4,6 +4,9 @@ import {connect} from 'react-redux'
 import Lesson from '../components/Lesson';
 import { NavLink } from 'react-router-dom';
 import { allLessons } from '../services/lessons'
+import FadeIn from 'react-fade-in';
+import { Container, Divider, Button } from 'semantic-ui-react'
+import { Virtuoso } from 'react-virtuoso'
 
 class LessonsContainer extends Component {
 
@@ -34,27 +37,38 @@ class LessonsContainer extends Component {
     }
 
     renderLessons = () => {
-        return this.props.teacherLessons.map(lesson => 
-            <Lesson key={lesson.id} id={lesson.id} title={lesson.title} remove={true} removeLesson={this.removeLesson}/>
-        )
+        return <Virtuoso 
+        style={{ width: '1050px', height: '300px'}} 
+        totalCount={1} 
+        item={() => <div>
+            {this.props.teacherLessons.map(lesson => {
+                return <Lesson key={lesson.id} id={lesson.id} title={lesson.title} remove={true} removeLesson={this.removeLesson} menu={this.props.menu}/>
+            })}
+        </div>}/>
     }
 
     render() { 
         return (  
             <div>
-                Lessosn container
-                <LessonForm currentUser={this.props.currentUser}/>
-                <NavLink to="/classroom" exact>
-                    <button>Add A Lesson To A Class</button>
-                </NavLink>
-                {this.renderLessons()}
+                <FadeIn>
+                    <Container textAlign='center'>
+                        <LessonForm currentUser={this.props.currentUser} fetchLessons={this.fetchLessons}/>
+                        <Divider />
+                        <NavLink to="/classroom" exact>
+                            {/* <button>Add A Lesson To A Class</button> */}
+                            <Button color={this.props.menu ? 'purple' : null} >Add A Lesson To A Class</Button>
+                        </NavLink>
+                        {this.renderLessons()}
+                    </Container>
+                </FadeIn>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    teacherLessons: state.teacher.teacherLessons
+    teacherLessons: state.teacher.teacherLessons,
+    menu: state.app.menu
 })
 
 const mapDispatchToProps = dispatch => ({

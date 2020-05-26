@@ -7,6 +7,8 @@ import { allStudentsInClassroom } from '../services/users'
 import { allLessonsForTeacher } from '../services/lessons'
 import { addStudentToClassroom } from '../services/classrooms'
 import { addLessonToClassroom } from '../services/classrooms'
+import FadeIn from 'react-fade-in';
+import { Container } from 'semantic-ui-react'
 
 class ClassroomEditContainer extends Component {
 
@@ -59,7 +61,8 @@ class ClassroomEditContainer extends Component {
             id={lesson.id}
             title={lesson.title}
             edit={true}
-            handleClickLesson={this.handleClickLesson}/>
+            handleClickLesson={this.handleClickLesson}
+            menu={this.props.menu}/>
         )
     }
 
@@ -67,15 +70,17 @@ class ClassroomEditContainer extends Component {
         console.log('CLASSROOM EDIT CONTAINER:', this.props.classroomName)
         return (  
             <div>
-                Edit Classroom
-                Name:
-                <ClassroomEditForm 
-                classroomName={this.props.classroomName}
-                classroomID={this.props.classroomID}/>
-                <h1>Students</h1>
-                {this.renderAllStudents()}
-                <h2>Lessons</h2>
-                {this.renderAllTeacherLessons()}
+                <FadeIn>
+                    <Container textAlign='center'>
+                        <ClassroomEditForm 
+                        classroomName={this.props.classroomName}
+                        classroomID={this.props.classroomID}/>
+                        <h1>Students</h1>
+                        {this.renderAllStudents()}
+                        <h2>Lessons</h2>
+                        {this.renderAllTeacherLessons()}
+                    </Container>
+                </FadeIn>
             </div>
         );
     }

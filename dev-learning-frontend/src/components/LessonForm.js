@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { newLesson } from '../services/lessons'
+import { Button, Form } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class LessonForm extends Component {
     state = {  
@@ -21,29 +23,32 @@ class LessonForm extends Component {
 
     handleOnSubmit = event => {
         event.preventDefault()
-        newLesson(this.state).then(console.log)
+        newLesson(this.state).then(() => this.props.fetchLessons())
     }
 
     render() { 
         // console.log(this.props)
         return (  
             <div>
-                <form onSubmit={this.handleOnSubmit}>
-                    <input type="text" placeholder="Title" name="title" onChange={this.handleOnChange} /> <br />
-                    <input type="number" placeholder="Points Worth" name="points_worth" onChange={this.handleOnChange} /><br />
-                    <input type="date" placeholder="Deadline" name="deadline" onChange={this.handleOnChange} /><br />
-                    <input type="radio" id='JS' name="language" value="63" onChange={this.handleOnChange} />
-                    <label htmlFor="JS">JavaScript</label><br />
-                    <input type="radio" id='RB' name="language" value="72" onChange={this.handleOnChange} />
-                    <label htmlFor="RB">Ruby</label><br />
-                    <input type="text" placeholder="Expected Return Value" name="return_value" onChange={this.handleOnChange} /><br />
-                    <textarea placeholder="Description" name="description" onChange={this.handleOnChange} /><br />
-                    <textarea placeholder="Boilerplate" name="boilerplate" onChange={this.handleOnChange} /><br />
-                    <input type="submit" />
-                </form>
+                <h1>Create a New Lesson</h1>
+                <Form onSubmit={this.handleOnSubmit}>
+                    <Form.Input icon='book' iconPosition='left' type="text" placeholder="Title" name="title" onChange={this.handleOnChange}   />
+                    <Form.Input icon='book' iconPosition='left' type="number" placeholder="Points Worth" name="points_worth" onChange={this.handleOnChange}   />
+                    <Form.Input icon='book' iconPosition='left' type="date" placeholder="Deadline" name="deadline" onChange={this.handleOnChange}   />
+                    <Form.Input type="radio" label='JavaScript' name="language" value="63" onChange={this.handleOnChange}   />
+                    <Form.Input type="radio" label='Ruby' name="language" value="72" onChange={this.handleOnChange}   />
+                    <Form.Input icon='book' iconPosition='left' type="text" placeholder="Expected Return Value" name="return_value" onChange={this.handleOnChange}   />
+                    <Form.TextArea placeholder="Description" name="description" onChange={this.handleOnChange}   />
+                    <Form.TextArea placeholder="Boilerplate" name="boilerplate" onChange={this.handleOnChange}   />
+                    <Button color={this.props.menu ? 'purple' : null} type='submit'>Create New Lesson</Button>
+                </Form>
             </div>
         );
     }
 }
 
-export default LessonForm;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+
+export default connect(mapStateToProps)(LessonForm);
