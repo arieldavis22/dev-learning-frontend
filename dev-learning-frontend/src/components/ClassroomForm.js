@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { newClassroom } from '../services/classrooms'
 import { Button, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 class ClassroomForm extends Component {
     state = {
         teacher_id: this.props.currentUser.id,
         name: ''
+    }
+
+    notifyClassroom = () => {
+        toast.success("Classroom Created", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
     }
 
     handleOnChange = event => {
@@ -23,6 +30,7 @@ class ClassroomForm extends Component {
         .then(classroomData => {
             this.props.fetchAllClassrooms()
             this.props.addClassroom(classroomData)
+            this.notifyClassroom()
             this.setState({
                 state: this.props.currentUser.id,
                 name: ''
@@ -37,10 +45,6 @@ class ClassroomForm extends Component {
                     <Form.Input icon='book' iconPosition='left' type="text" name="name" onChange={this.handleOnChange} placeholder="Classroom Name" />
                     <Button color={this.props.menu ? 'purple' : null} type='submit'>Create New Classroom</Button>
                 </Form>
-                {/* <form onSubmit={this.handleOnSubmit}>
-                    <input type="text" name="name" onChange={this.handleOnChange} placeholder="Classroom Name" />
-                    <input type="submit" />
-                </form> */}
             </div>
         );
     }

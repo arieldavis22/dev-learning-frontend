@@ -4,11 +4,18 @@ import { login } from '../services/users'
 import { Button, Container, Form } from 'semantic-ui-react'
 import '../App.css'
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 class LoginForm extends Component {
     state = {  
         email: '',
         password: ''
+    }
+    
+    notifyLogIn = () => {
+        toast.success("Login Successful", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
     }
 
     handleOnChange = event => {
@@ -23,6 +30,7 @@ class LoginForm extends Component {
         .then(data => {
             // console.log("logging in as:", data.data.attributes)
             this.props.setUser(data.data.attributes)
+            this.notifyLogIn()
             this.props.history.push('/')
         })
     }

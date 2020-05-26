@@ -86,8 +86,9 @@ class Classroom extends Component {
 
 
 
+
     render() { 
-        const { id, name, setInfo, student, setLessonState, render, handleLessonToClassroom, lesson } = this.props
+        const { id, name, setInfo, student, setLessonState, render, handleLessonToClassroom, lesson, handleRemoveClassroom } = this.props
         return (  
             <div>
                 <FadeIn>
@@ -121,6 +122,7 @@ class Classroom extends Component {
                     {/* <button onClick={() => setInfo(name, id)}>Edit Classroom/Add Student/Lesson</button> */}
                     <Button color={this.props.menu ? 'purple' : null} onClick={() => setInfo(name, id)} icon='book' size='big' content='Edit Classroom/Add Student/Lesson'/>
                 </NavLink>
+                <Button color='red' onClick={() => handleRemoveClassroom(id)} content="Delete Classroom"/>
                 <Divider />
             </div>
             :

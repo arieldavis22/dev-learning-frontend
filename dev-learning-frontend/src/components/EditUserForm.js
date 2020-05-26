@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { editUser } from '../services/users'
 import { connect } from 'react-redux';
 import { Button, Form } from 'semantic-ui-react'
+import { toast } from 'react-toastify';
 
 class EditUserForm extends Component {
     state = {  
@@ -17,6 +18,12 @@ class EditUserForm extends Component {
         })
     }
 
+    notifyUserNameChange = () => {
+        toast.success("Name Changed", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     handleOnChange = event => {
         this.setState({
             [event.target.name]: event.target.value
@@ -28,11 +35,13 @@ class EditUserForm extends Component {
         editUser(this.state)
         .then(data => {
             this.props.setUser(data)
+            this.notifyUserNameChange()
+            this.props.history.push('/')
         })
     }
 
     render() { 
-        // console.log("EDIT USER STATE:", this.state)
+        console.log("EDIT USER STATE:", this.props)
         return (  
             <div>
                 <Form onSubmit={this.handleOnSubmit}>

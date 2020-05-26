@@ -19,7 +19,7 @@ function PomodoroTimer() {
 
     return (
         <div className="App">
-        <h1>Timer</h1>
+        <h1>Pomodoro Timer</h1>
         <h2>{value.m}:{value.s}</h2>
         <button onClick={start}>Start</button>
         <button onClick={stop}>Stop</button>

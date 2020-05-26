@@ -68,6 +68,7 @@ class TeacherFollowContainer extends Component {
         // console.log(this.props.currentUser)
         return (  
             <div>
+                {!this.props.currentUser ? this.props.history.push('/') : null}
                 <FadeIn>
                     <Container textAlign='center'>
                         <h1>Following</h1>

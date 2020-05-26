@@ -47,18 +47,20 @@ const Lesson = ({
                 {today > lesson.deadline ? 
                 <div>
                     <button>Past Deadline</button>
+                    <Button color='red'>Past Deadline</Button>
                 </div>
                 : 
                 <div>
                     <NavLink to="/complete-lesson" exact>
-                        <button onClick={() => handleOnClickLesson(lesson)}>Complete Lesson</button> 
+                        {/* <button onClick={() => handleOnClickLesson(lesson)}>Complete Lesson</button>  */}
+                        <Button color={menu ? 'purple' : null} onClick={() => handleOnClickLesson(lesson)}>Complete Lesson</Button>
                     </NavLink>
                 </div>
                 }
             </div>
             : 
             null}
-            {edit ? <button onClick={() => handleClickLesson(id)}>Add To Class</button> : null}
+            {edit ? <Button color={menu ? 'purple' : null} onClick={() => handleClickLesson(id)} >Add Lesson To Class</Button>: null}
             </FadeIn>
         </div>
     );

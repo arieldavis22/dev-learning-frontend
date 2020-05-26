@@ -62,11 +62,11 @@ class CLessonContainer extends Component {
                         </Container>
                         </Grid.Column>
                     </Grid>
-
-                <PomodoroTimer />
-
-                <h2>Report This Lesson</h2>
-                <ReportForm lesson_id={this.props.CLesson.id} />
+                    <Container textAlign='center'>
+                        <PomodoroTimer />
+                        <h2>Report A Problem With This Lesson</h2>
+                        <ReportForm lesson_id={this.props.CLesson.id} />
+                    </Container>
                 </FadeIn>
             </div>
         );

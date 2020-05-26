@@ -26,6 +26,7 @@ class SignupForm extends Component {
         .then(data => {
             console.log("SIGN UP:",data.data.attributes)
             this.props.setUser(data.data.attributes)
+            this.props.history.push('/')
         })
     }
     

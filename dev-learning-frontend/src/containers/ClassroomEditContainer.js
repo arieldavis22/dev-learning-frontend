@@ -9,6 +9,7 @@ import { addStudentToClassroom } from '../services/classrooms'
 import { addLessonToClassroom } from '../services/classrooms'
 import FadeIn from 'react-fade-in';
 import { Container } from 'semantic-ui-react'
+import { toast } from 'react-toastify';
 
 class ClassroomEditContainer extends Component {
 
@@ -31,9 +32,18 @@ class ClassroomEditContainer extends Component {
         })
     }
 
+    notifyAddToClass = () => {
+        toast.success("Student Added", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     handleClick = (id) => {
         addStudentToClassroom(this.props.classroomID, id)
-        .then(() => this.fetchAllStudents())
+        .then(() => {
+            this.fetchAllStudents()
+            this.notifyAddToClass()
+        })
     }
 
     handleClickLesson = (id) => {
@@ -70,6 +80,7 @@ class ClassroomEditContainer extends Component {
         console.log('CLASSROOM EDIT CONTAINER:', this.props.classroomName)
         return (  
             <div>
+                {!this.props.currentUser ? this.props.history.push('/') : null}
                 <FadeIn>
                     <Container textAlign='center'>
                         <ClassroomEditForm 

@@ -19,17 +19,26 @@ import { autologin, logout } from './services/users'
 import './index.css'
 import {Helmet} from 'react-helmet';
 import ToggleDarkMode from './components/DarkModeToggle';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Container } from 'semantic-ui-react'
 
 class App extends Component {
+  notifyLogOut = () => {
+    toast.success("Logout Successful", {
+      position: toast.POSITION.BOTTOM_RIGHT
+    })
+  }
 
   componentDidMount = () => {
-    autologin().then(data => { this.props.setUser(data)})
+    autologin().then(data => { this.props.setUser(data.data.attributes)})
     .catch(error => console.log(error))
   }
 
   logOut = () => {
     logout().then(() => {
       this.props.unsetUser()
+      this.notifyLogOut()
       return <Redirect to='/' />
     })
   }
@@ -43,6 +52,9 @@ class App extends Component {
         <NavBar currentUser={this.props.currentUser} logOut={this.logOut}/>
         <StackQuestionMenu />
         <ToggleDarkMode />
+        <Container textAlign='right' >
+          <ToastContainer/>
+        </Container>
         <Switch>
 
           <Route exact path="/" 

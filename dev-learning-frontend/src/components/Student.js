@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { findStudentGPA } from '../services/users'
+import { Button } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class Student extends Component {
 
@@ -25,14 +27,16 @@ class Student extends Component {
             {first_name}, {last_name}: {this.state.student_point_average}
             {addToClass ? 
             <div>
-                <button onClick={() => handleClick(id)}>Add To Class</button> 
+                {/* <button onClick={() => handleClick(id)}>Add To Class</button>  */}
+                <Button color={this.props.menu ? 'purple' : null} onClick={() => handleClick(id)}>Add Student To Class</Button>
             </div>
             : 
             null
             }
             {remove ? 
             <div>
-                <button onClick={() => handleRemoveFromClass(id)}>Remove From Class</button>
+                {/* <button onClick={() => handleRemoveFromClass(id)}>Remove From Class</button> */}
+                <Button color={this.props.menu ? 'purple' : null} onClick={() => handleRemoveFromClass(id)}>Remove From Class</Button>
             </div> 
             : 
             null
@@ -42,4 +46,8 @@ class Student extends Component {
     }
 }
 
-export default Student;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+
+export default connect(mapStateToProps)(Student);

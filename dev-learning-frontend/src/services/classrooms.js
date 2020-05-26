@@ -65,3 +65,17 @@ export function addLessonToClassroom(classroom_id, lesson_id) {
     })
     .then(r => r.json())
 }
+
+export function removeClassroom(id) {
+    return fetch("http://localhost:3000/remove-classroom", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+            classroom_id: id
+        })
+    })
+    .then(r => r.json())
+}

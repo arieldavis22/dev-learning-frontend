@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import ClassroomForm from '../components/ClassroomForm'
 import {connect} from 'react-redux'
 import Classroom from '../components/Classroom';
-import { allClassooms } from '../services/classrooms'
-import { Redirect } from 'react-router-dom';
+import { allClassooms, removeClassroom } from '../services/classrooms'
 import { Container, Divider } from 'semantic-ui-react'
 import { Virtuoso } from 'react-virtuoso'
+import { toast } from 'react-toastify';
 
 
 class ClassroomContainer extends Component {
@@ -23,8 +23,14 @@ class ClassroomContainer extends Component {
         this.fetchAllClassrooms()
     }
 
-    fetchAllClassrooms = () => {
-        allClassooms(this.props.currentUser.id)
+    notifyClassroomRemove = () => {
+        toast.success("Classroom Removed", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
+    fetchAllClassrooms = async () => {
+        await allClassooms(this.props.currentUser.id)
         .then(classroomData => {
             console.log("CLASSROOM DATA", classroomData)
             this.props.setClassroom(classroomData)
@@ -36,9 +42,18 @@ class ClassroomContainer extends Component {
         this.props.setID(id)
     }
 
+    handleRemoveClassroom = (id) => {
+    removeClassroom(id)
+    .then(() => {
+        this.fetchAllClassrooms()
+        this.notifyClassroomRemove()
+    })
+    }
+
 
     renderClassrooms = () => {
-        if(this.props.classroom && this.props.currentUser) {
+    
+        if(this.props.classroom && Array.isArray(this.props.classroom)) {
             return <Virtuoso 
             style={{ width: '1050px', height: '500px'}} 
             totalCount={1} 
@@ -49,7 +64,8 @@ class ClassroomContainer extends Component {
                 id={classroom.id}
                 name={classroom.name}
                 setInfo={this.setNameAndID}
-                render={true}/>
+                render={true}
+                handleRemoveClassroom={this.handleRemoveClassroom}/>
                 })}
             </div> } />
     }
@@ -60,7 +76,7 @@ class ClassroomContainer extends Component {
         console.log("ALL STUDENTS FOR EACH CLASS:", this.props.classroom)
         return (  
             <div>
-                {!this.props.currentUser ? <Redirect to="/" /> : null}
+                {!this.props.currentUser ? this.props.history.push('/') : null}
                 <Container textAlign='center'>
                     <ClassroomForm 
                     currentUser={this.props.currentUser}
