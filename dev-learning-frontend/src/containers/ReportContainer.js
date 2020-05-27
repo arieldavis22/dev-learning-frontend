@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Report from '../components/Report';
 import { allReportsForLesson, removeReportForLesson } from '../services/lessons'
+import { toast } from 'react-toastify';
 
 
 class ReportContainer extends Component {
@@ -15,24 +16,36 @@ class ReportContainer extends Component {
         .then(data => this.props.setReports(data))
     }
 
+    notifyReport = () => {
+        toast.success("Report Deleted", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     handleRemoveLesson = id => {
-        removeReportForLesson(id).then(() => this.fetchReports())
+        removeReportForLesson(id).then(() => {
+            this.notifyReport()
+            this.fetchReports()
+        })
     }
 
     renderReports = () => {
-        return this.props.lessonReports.map(report => 
-            <Report 
-            key={report.id}
-            id={report.id}
-            title={report.title}
-            message={report.message} 
-            handleRemoveLesson={this.handleRemoveLesson}/>
-        )
+        if(this.props.lessonReports) {
+            return this.props.lessonReports.map(report => 
+                <Report 
+                key={report.id}
+                id={report.id}
+                title={report.title}
+                message={report.message} 
+                handleRemoveLesson={this.handleRemoveLesson}/>
+            )
+        }
     }
     render() { 
         console.log(this.props);
         return (  
             <div>
+                {!this.props.currentUser ? this.props.history.push('/') : null}
                 {this.renderReports()}
             </div>
         );

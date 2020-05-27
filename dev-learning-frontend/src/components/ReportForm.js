@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { reportLesson } from '../services/lessons'
+import { toast } from 'react-toastify';
 
 class ReportForm extends Component {
     state = {  
@@ -14,9 +15,23 @@ class ReportForm extends Component {
         })
     }
 
+    notifyReport = () => {
+        toast.success("Report Submitted", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     handleSubmit = event => {
         event.preventDefault()
-        reportLesson(this.state).then(console.log)
+        reportLesson(this.state).then(() => {
+            this.notifyReport()
+            this.setState({
+                lesson_id: this.props.lesson_id,
+                title: '',
+                message: ''
+            })
+        })
+        // event.reset()
     }
     render() { 
         return (  

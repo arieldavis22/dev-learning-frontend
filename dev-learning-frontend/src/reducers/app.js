@@ -1,5 +1,5 @@
 export default function app(state = {
-    background: 'rgb(212, 212, 212);',
+    background: 'rgb(240, 240, 240);',
     logo: 'logo-light.png',
     menu: false
 }, action) {

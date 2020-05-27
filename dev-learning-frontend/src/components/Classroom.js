@@ -8,6 +8,7 @@ import { findStudents, findStudentGpa, removeStudent } from '../services/users'
 import { findLessons } from '../services/lessons'
 import { Virtuoso } from 'react-virtuoso'
 import { Divider, Button } from 'semantic-ui-react'
+import { toast } from 'react-toastify';
 
 class Classroom extends Component {
     
@@ -44,8 +45,17 @@ class Classroom extends Component {
         })
     }
 
+    notifyStudentRemovedFromClassroom = () => {
+        toast.success("Student Removed", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     handleRemoveFromClassroom = id => {
-        removeStudent(this.props.id, id).then(() => this.fetchAllStudents())
+        removeStudent(this.props.id, id).then(() => {
+            this.fetchAllStudents()
+            this.notifyStudentRemovedFromClassroom()
+        })
     }
 
     handleSetLessonId = id => {
