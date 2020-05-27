@@ -50,6 +50,7 @@ class LessonsContainer extends Component {
     render() { 
         return (  
             <div>
+                {!this.props.currentUser ? this.props.history.push('/') : null}
                 <FadeIn>
                     <Container textAlign='center'>
                         <LessonForm currentUser={this.props.currentUser} fetchLessons={this.fetchLessons}/>

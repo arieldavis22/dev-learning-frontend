@@ -5,7 +5,7 @@ import Student from './Student';
 import Lesson from './Lesson';
 import FadeIn from 'react-fade-in';
 import { findStudents, findStudentGpa, removeStudent } from '../services/users'
-import { findLessons } from '../services/lessons'
+import { findAllLessons } from '../services/lessons'
 import { Virtuoso } from 'react-virtuoso'
 import { Divider, Button } from 'semantic-ui-react'
 import { toast } from 'react-toastify';
@@ -30,7 +30,7 @@ class Classroom extends Component {
     componentDidMount() {
         this.fetchAllStudents()
 
-        findLessons(this.props.id)
+        findAllLessons(this.props.id)
         .then(data => {
             this.setState({
                 lessonsInClass: data

@@ -12,7 +12,7 @@ class StudentLessonContainer extends Component {
     state = {  }
 
     componentDidMount() {
-        findLessons(this.props.classroomID)
+        findLessons(this.props.classroomID, this.props.currentUser.id)
         .then(data => {
             this.props.setClassroomLessons(data)
         })

@@ -1,23 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Classroom from '../components/Classroom';
-import { allClassooms, addLessonToClassroom } from '../services/classrooms'
+import { addLessonToClassroom } from '../services/classrooms'
+import { toast } from 'react-toastify';
 
 class LessonsToClassroomContainer extends Component {
 
     componentDidMount() {
-        allClassooms(this.props.currentUser.id)
+        // allClassooms(this.props.currentUser.id)
+        fetch("http://localhost:3000/classroom-without-lesson", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                id: this.props.currentUser.id,
+                lesson_id: this.props.lessonID
+            })
+        })
+        .then(r => r.json())
         .then(data => {
             this.props.setAllClassrooms(data)
         })
     }
 
+    notifyLessonToClassroom = () => {
+        toast.success("Lesson Added", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     handleLessonToClassroom = (id) => {
-        addLessonToClassroom(id, this.props.lessonID).then(console.log)
+        addLessonToClassroom(id, this.props.lessonID).then(() => {
+            this.notifyLessonToClassroom()
+            this.props.history.push('/')
+        })
     }
 
     renderClassrooms = () => {
-        return this.props.allClassrooms.map(classroom => 
+        if(this.props.allClassrooms) {
+            return this.props.allClassrooms.map(classroom => 
                 <Classroom 
                 key={classroom.id} 
                 id={classroom.id}
@@ -25,14 +48,16 @@ class LessonsToClassroomContainer extends Component {
                 handleLessonToClassroom={this.handleLessonToClassroom}
                 lesson={true}/>
             )
+        }
     }
 
     
     render() { 
-        // console.log("LESSONS TO CLASSROOM:", this.props.allClassrooms)
+        console.log("LESSONS TO CLASSROOM:", this.props.allClassrooms)
         return (  
             <div>
-                all classrooms
+                {!this.props.currentUser ? this.props.history.push('/') : null}
+                <h1>All Your Classrooms</h1>
                 {this.renderClassrooms()}
             </div>
         );

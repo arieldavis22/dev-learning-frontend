@@ -7,6 +7,7 @@ import ReportForm from '../components/ReportForm';
 import { testCodeJudge } from '../services/Judge0Api'
 import PomodoroTimer from '../components/PomodoroTimer';
 import { Container, Grid } from 'semantic-ui-react';
+import Toast from 'light-toast';
 
 
 class CLessonContainer extends Component {
@@ -16,8 +17,10 @@ class CLessonContainer extends Component {
     }
 
     handleCodeTest = (code, lesson_lang) => {
+        Toast.loading('Loading')
         testCodeJudge(code, lesson_lang)
         .then(data => {
+            Toast.hide()
             this.props.addToConsole(data)
         })
     }
@@ -30,7 +33,7 @@ class CLessonContainer extends Component {
 
     render() { 
         console.log("CLesson COntainer:", this.props)
-        const { title, description, boilerplate, return_value, points, deadline } = this.props.CLesson
+        const { id, title, description, boilerplate, return_value, points, deadline } = this.props.CLesson
         return (  
             <div>
                 {!this.props.currentUser ? this.props.history.push('/') : null}
@@ -50,6 +53,7 @@ class CLessonContainer extends Component {
                         <Grid.Column>
                         <Container textAlign='right'>
                             <CLessonForm 
+                            lesson_id={id}
                             boilerplate={boilerplate} 
                             return_value={return_value} 
                             points={points}

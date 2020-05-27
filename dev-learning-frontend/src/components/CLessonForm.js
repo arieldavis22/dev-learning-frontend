@@ -11,7 +11,9 @@ class CLessonForm extends Component {
     state = {  
         code: "",
         return_value: this.props.return_value,
-        lesson_lang: this.props.lesson_lang
+        lesson_lang: this.props.lesson_lang,
+        lesson_id: this.props.lesson_id,
+        student_id: this.props.student_id
     }
 
     handleOnChange = (event) => {
@@ -63,7 +65,7 @@ class CLessonForm extends Component {
 
 
     render() { 
-        console.log(this.state)
+        // console.log("CLFORM PROPS:",this.state)
         return (  
             <div>
                 <Form onSubmit={this.handleOnSubmit}>

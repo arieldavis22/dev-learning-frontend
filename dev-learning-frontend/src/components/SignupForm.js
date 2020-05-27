@@ -3,6 +3,7 @@ import FadeIn from 'react-fade-in';
 import { signup } from '../services/users'
 import { Button, Container, Form, } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 class SignupForm extends Component {
     state = {  
@@ -18,6 +19,16 @@ class SignupForm extends Component {
             [event.target.name]: event.target.value
         })
     }
+    notifySignup = () => {
+        toast.success("Account Created", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+    notifySignupFail = () => {
+        toast.error("Invalid Information", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
 
     handleOnSubmit = event => {
         event.preventDefault()
@@ -26,8 +37,10 @@ class SignupForm extends Component {
         .then(data => {
             console.log("SIGN UP:",data.data.attributes)
             this.props.setUser(data.data.attributes)
+            this.notifySignup()
             this.props.history.push('/')
         })
+        .catch(() => this.notifySignupFail())
     }
     
     render() { 

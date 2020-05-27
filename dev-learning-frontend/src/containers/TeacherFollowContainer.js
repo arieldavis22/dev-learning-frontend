@@ -5,23 +5,41 @@ import { findAllTeachers, allTeacherFollowing, followTeacher } from '../services
 import { Container, Divider } from 'semantic-ui-react'
 import { Virtuoso } from 'react-virtuoso'
 import FadeIn from 'react-fade-in';
+import { toast } from 'react-toastify';
 
 class TeacherFollowContainer extends Component {
     
     componentDidMount() {
+        this.fetchAllTeachers()
+        this.fetchFollowingTeachers()
+
+    }
+
+    fetchAllTeachers = () => {
         findAllTeachers(this.props.currentUser.id)
         .then(data => {
             this.props.setTeachers(data)
         })
+    }
 
+    fetchFollowingTeachers = () => {
         allTeacherFollowing(this.props.currentUser.id)
         .then(data => {
             this.props.setFollowedTeachers(data)
         })
     }
+    notifyFollow = () => {
+        toast.success("You now follow this teacher!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
 
     handleTeacherFollow = (id) => {
-        followTeacher(this.props.currentUser.id, id).then(console.log)
+        followTeacher(this.props.currentUser.id, id).then(() => {
+            this.fetchAllTeachers()
+            this.notifyFollow()
+            this.fetchFollowingTeachers()
+        })
     }
 
     renderFollowedTeachers = () => {
@@ -63,8 +81,8 @@ class TeacherFollowContainer extends Component {
         }
     }
     render() { 
-        console.log("TEAHER FOLLOW:", this.props.followedTeachers)
-        console.log("Teacher NOT FOLLOWED:", this.props.allTeachers)
+        // console.log("TEAHER FOLLOW:", this.props.followedTeachers)
+        // console.log("Teacher NOT FOLLOWED:", this.props.allTeachers)
         // console.log(this.props.currentUser)
         return (  
             <div>

@@ -1,5 +1,20 @@
-export function findLessons(id) {
+export function findLessons(id, id2) {
     return fetch("http://localhost:3000/find-lessons", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+            classroom_id: id,
+            student_id: id2
+        })
+    })
+    .then(r => r.json())
+}
+
+export function findAllLessons(id) {
+    return fetch("http://localhost:3000/find-all-lessons", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -11,6 +26,8 @@ export function findLessons(id) {
     })
     .then(r => r.json())
 }
+
+//find-all-lessons
 
 export function newLesson(state) {
     return fetch("http://localhost:3000/newlesson", {

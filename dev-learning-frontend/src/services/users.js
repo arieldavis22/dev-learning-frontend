@@ -90,7 +90,13 @@ export function signup(state) {
         credentials: "include",
         body: JSON.stringify(state)
     })
-    .then(r => r.json())
+    .then(r => {
+        if(r.ok) {
+            return r.json()
+        } else {
+            throw r
+        }
+    })
 }
 
 export function findStudentGPA(classroom_id, student_id) {

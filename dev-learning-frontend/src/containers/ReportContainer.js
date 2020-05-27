@@ -30,6 +30,7 @@ class ReportContainer extends Component {
     }
 
     renderReports = () => {
+        // debugger
         if(this.props.lessonReports) {
             return this.props.lessonReports.map(report => 
                 <Report 

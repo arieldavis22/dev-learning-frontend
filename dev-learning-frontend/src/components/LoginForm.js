@@ -18,6 +18,12 @@ class LoginForm extends Component {
         })
     }
 
+    notifyLogInFail = () => {
+        toast.error("Incorrect Information Provided", {
+        position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     handleOnChange = event => {
         this.setState({
             [event.target.name]: event.target.value
@@ -33,6 +39,7 @@ class LoginForm extends Component {
             this.notifyLogIn()
             this.props.history.push('/')
         })
+        .catch(() => this.notifyLogInFail())
     }
     render() { 
         console.log(this.props)
