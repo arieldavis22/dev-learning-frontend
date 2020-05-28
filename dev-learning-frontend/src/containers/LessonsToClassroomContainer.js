@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Classroom from '../components/Classroom';
 import { addLessonToClassroom } from '../services/classrooms'
 import { toast } from 'react-toastify';
+import { Container } from 'semantic-ui-react'
 
 class LessonsToClassroomContainer extends Component {
 
@@ -57,8 +58,10 @@ class LessonsToClassroomContainer extends Component {
         return (  
             <div>
                 {!this.props.currentUser ? this.props.history.push('/') : null}
-                <h1>All Your Classrooms</h1>
-                {this.renderClassrooms()}
+                <Container textAlign="center">
+                    <h1>All Your Classrooms</h1>
+                    {this.renderClassrooms()}
+                </Container>
             </div>
         );
     }

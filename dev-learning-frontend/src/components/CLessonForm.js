@@ -69,7 +69,7 @@ class CLessonForm extends Component {
         return (  
             <div>
                 <Form onSubmit={this.handleOnSubmit}>
-                    <Form.TextArea className="IDE" style={{width: '450px', height: '600px'}} name="code" onChange={this.handleOnChange} placeholder={this.props.boilerplate} />
+                    <Form.TextArea className="IDE" style={{width: '450px', height: '425px'}} name="code" onChange={this.handleOnChange} placeholder={this.props.boilerplate} />
                     <Button type='button' onClick={() => this.props.handleCodeTest(this.state.code, this.state.lesson_lang)}>Test Code</Button>
                     <Button color={this.props.menu ? 'purple' : null} type='submit'>Turn in Lesson</Button>
                 </Form>

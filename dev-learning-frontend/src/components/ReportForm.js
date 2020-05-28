@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { reportLesson } from '../services/lessons'
 import { toast } from 'react-toastify';
+import { Button, Form } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class ReportForm extends Component {
     state = {  
@@ -36,14 +38,23 @@ class ReportForm extends Component {
     render() { 
         return (  
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Input  type="text" name="title" placeholder="Title" onChange={this.handleOnChange}/>
+                    <Form.Input  type="text" name="message" placeholder="message" onChange={this.handleOnChange}/>
+                    <Button type="submit">Send Report</Button>
+                </Form>
+                {/* <form onSubmit={this.handleSubmit}>
                     <input type="text" name="title" placeholder="Title" onChange={this.handleOnChange}/>
                     <input type="text" name="message" placeholder="message" onChange={this.handleOnChange}/>
                     <input type="submit" />
-                </form>
+                </form> */}
             </div>
         );
     }
 }
 
-export default ReportForm;
+const mapStateToProps = state => ({
+    menu: state.app.menu
+})
+
+export default connect(mapStateToProps)(ReportForm);

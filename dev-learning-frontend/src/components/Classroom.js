@@ -113,7 +113,8 @@ class Classroom extends Component {
             </div>
             }
 
-            {lesson ? <button onClick={() => handleLessonToClassroom(id)}>Add</button> : null}
+            {lesson ? <Button color={this.props.menu ? 'purple' : null} onClick={() => handleLessonToClassroom(id)}>Add</Button> : null}
+            
 
 
             {student ?  

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { allTeacherLessons } from '../services/users'
-import { Divider } from 'semantic-ui-react'
+import { Divider, Button } from 'semantic-ui-react'
+
 class Teacher extends Component {
     state = {  
         lessons: []
@@ -33,7 +34,8 @@ class Teacher extends Component {
                         <h3>Title: {lesson.title}</h3>
                         <p>Description: {lesson.description}</p>
                         <NavLink to="/add-lesson" exact>
-                            <button onClick={() => this.handleID(lesson.id)}>Add Lesson</button>
+                            {/* <button onClick={() => this.handleID(lesson.id)}>Add Lesson</button> */}
+                            <Button color={this.props.menu ? 'purple' : null} onClick={() => this.handleID(lesson.id)}>Add Lesson</Button>
                         </NavLink>
                     </div>
                     )}
@@ -43,7 +45,8 @@ class Teacher extends Component {
                 null}
                 {notFollowed ? 
                 <div>
-                    <button onClick={() => handleTeacherFollow(id)}>Follow</button>
+                    {/* <button onClick={() => handleTeacherFollow(id)}>Follow</button> */}
+                    <Button color={this.props.menu ? 'purple' : null} onClick={() => handleTeacherFollow(id)}>Follow</Button>
                     <Divider/>
                 </div> : null }
             </div>
@@ -51,7 +54,8 @@ class Teacher extends Component {
     }
 }
 const mapStateToProps = state => ({
-    lessonID: state.lesson.lessonID
+    lessonID: state.lesson.lessonID,
+    menu: state.app.menu
 })
 
 const mapDispatchToProps = dispatch => ({

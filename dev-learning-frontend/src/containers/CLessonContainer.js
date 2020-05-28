@@ -6,8 +6,9 @@ import IDEConsole from '../components/IDEConole';
 import ReportForm from '../components/ReportForm';
 import { testCodeJudge } from '../services/Judge0Api'
 import PomodoroTimer from '../components/PomodoroTimer';
-import { Container, Grid } from 'semantic-ui-react';
+import { Container, Grid, Divider } from 'semantic-ui-react';
 import Toast from 'light-toast';
+import { Virtuoso } from 'react-virtuoso'
 
 
 class CLessonContainer extends Component {
@@ -26,9 +27,14 @@ class CLessonContainer extends Component {
     }
 
     renderConsoleLog = () => {
-        return this.props.console.map(log => 
-            <IDEConsole log={log} />
-        )
+        return <Virtuoso 
+            style={{ width: '450px', height: '75px', border: '5px dashed gray', borderRadius: '4px' }} 
+            totalCount={1} 
+            item={() => <div>
+                {this.props.console.map(log => {
+                    return <IDEConsole log={log} />
+                })}
+            </div>}/>
     }
 
     render() { 
@@ -66,8 +72,10 @@ class CLessonContainer extends Component {
                         </Container>
                         </Grid.Column>
                     </Grid>
+                    <Divider/>
                     <Container textAlign='center'>
                         <PomodoroTimer />
+                        <Divider/>
                         <h2>Report A Problem With This Lesson</h2>
                         <ReportForm lesson_id={this.props.CLesson.id} />
                     </Container>
