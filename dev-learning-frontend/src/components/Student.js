@@ -1,53 +1,45 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { findStudentGPA } from '../services/users'
 import { Button } from 'semantic-ui-react'
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-class Student extends Component {
+const Student = (props) => {
+    const [pointAverage, setPointAverage] = useState('')
+    const { id, first_name, last_name, addToClass, handleClick, remove, handleRemoveFromClass 
+    } = props
+    const menu = useSelector(state => state.app.menu)
 
-    state = {
-        student_point_average: ''
-    }
-
-    componentDidMount() {
-        if(this.props.classroom_id) {
-            findStudentGPA(this.props.classroom_id, this.props.id)
-            .then(data => {
-                this.setState({
-                    student_point_average: data
-                })
-            })
+    useEffect(() => {
+        if(props.classroom_id) {
+            findStudentGPA(props.classroom_id, props.id)
+            .then(data => setPointAverage(data))
         }
-    }
-
-    render() { 
-        const { id, first_name, last_name, addToClass, handleClick, remove, handleRemoveFromClass } = this.props
-        return (  
-            <div>
-            {first_name}, {last_name}: {this.state.student_point_average}
+    })
+    return (  
+        <div>
+            {first_name}, {last_name}: {pointAverage}
             {addToClass ? 
             <div>
-                {/* <button onClick={() => handleClick(id)}>Add To Class</button>  */}
-                <Button color={this.props.menu ? 'purple' : null} onClick={() => handleClick(id)}>Add Student To Class</Button>
+                <Button 
+                color={menu ? 'purple' : null} 
+                onClick={() => handleClick(id)}>
+                    Add Student To Class
+                </Button>
             </div>
-            : 
-            null
-            }
+            : null}
+
             {remove ? 
             <div>
-                {/* <button onClick={() => handleRemoveFromClass(id)}>Remove From Class</button> */}
-                <Button color={this.props.menu ? 'purple' : null} onClick={() => handleRemoveFromClass(id)}>Remove From Class</Button>
+                <Button 
+                color={menu ? 'purple' : null} 
+                onClick={() => handleRemoveFromClass(id)}>
+                    Remove From Class
+                </Button>
             </div> 
-            : 
-            null
-            }
+            : null}
+
             </div>
-        );
-    }
+    );
 }
 
-const mapStateToProps = state => ({
-    menu: state.app.menu
-})
-
-export default connect(mapStateToProps)(Student);
+export default Student;
