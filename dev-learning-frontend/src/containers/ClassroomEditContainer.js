@@ -10,6 +10,7 @@ import { addLessonToClassroom } from '../services/classrooms'
 import FadeIn from 'react-fade-in';
 import { Container } from 'semantic-ui-react'
 import { toast } from 'react-toastify';
+import { Virtuoso } from 'react-virtuoso'
 
 class ClassroomEditContainer extends Component {
 
@@ -53,14 +54,20 @@ class ClassroomEditContainer extends Component {
 
     renderAllStudents = () => {
         if(this.props.allStudents.data) {
-            return this.props.allStudents.data.map(student => <Student 
-                key={student.attributes.id}
-                id={student.attributes.id}
-                first_name={student.attributes.first_name}
-                last_name={student.attributes.last_name}
-                addToClass={true}
-                handleClick={this.handleClick}/>
-            )
+            return <Virtuoso 
+            style={{ width: '1050px', height: '400px'}} 
+            totalCount={1} 
+            item={() => <div>
+                {this.props.allStudents.data.map(student => {
+                    return <Student 
+                    key={student.attributes.id}
+                    id={student.attributes.id}
+                    first_name={student.attributes.first_name}
+                    last_name={student.attributes.last_name}
+                    addToClass={true}
+                    handleClick={this.handleClick}/>
+                })}
+            </div>}/>
         }
     }
 

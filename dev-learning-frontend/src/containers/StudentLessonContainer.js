@@ -38,7 +38,7 @@ class StudentLessonContainer extends Component {
         </div>}/>
     }
     render() { 
-        // console.log("ST CONTAINER:", this.props.classroomID)
+        console.log("ST CONTAINER:", this.props.currentUser.id)
         return (  
             <div>
                 {!this.props.currentUser ? <Redirect to="/" /> : null}
