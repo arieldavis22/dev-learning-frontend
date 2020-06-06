@@ -1,8 +1,7 @@
 import React from "react";
 import { useTimer } from "react-compound-timer";
 
-
-function PomodoroTimer() {
+const PomodoroTimer = () => {
     const {
         value,
         controls: { setTime, start, stop }
@@ -16,8 +15,7 @@ function PomodoroTimer() {
                 callback: () => setTime(300000)
             }
         ]});
-
-    return (
+    return (  
         <div className="App">
         <h1>Pomodoro Timer</h1>
         <h2>{value.m}:{value.s}</h2>

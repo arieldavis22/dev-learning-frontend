@@ -36,7 +36,6 @@ class StackQuestionMenu extends Component {
                 {this.props.stackAnswers.items.map(answer => {
                 return <div className={this.props.menu ? 'search' : null} key={answer.question_id}>
                     <h3>{answer.title}</h3>
-                    {/* <p>{answer.link}</p> */}
                     <a href={answer.link} target="_blank" rel="noopener noreferrer">Stack Post</a>
                     <Divider/>
                 </div>

@@ -8,7 +8,6 @@ const Report = ({ id, title, message, handleRemoveLesson, menu }) => {
             <Container textAlign='center'>
                 <h1>{title}</h1>
                 <p>{message}</p>
-                {/* <button onClick={() => handleRemoveLesson(id)}>Remove Report</button> */}
                 <Button color={menu ? 'purple' : null} onClick={() => handleRemoveLesson(id)}>Remove Report</Button>
                 <Divider/>
             </Container>
