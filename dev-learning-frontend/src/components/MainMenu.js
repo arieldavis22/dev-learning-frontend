@@ -1,38 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import FadeIn from 'react-fade-in';
 import { Container } from 'semantic-ui-react'
+import { useSelector } from 'react-redux';
 import '../App.css'
-import { connect } from 'react-redux';
 
-
-class MainMenu extends Component {
-    state = {  }
-
-    imgStyle = {
-        height: '100px',
-    }
-    render() { 
-        return (  
-            <div>
-                <FadeIn>
-                    <Container textAlign='center'>
-                        <img 
-                        src={require(`../images/logo/${this.props.logo}`)} 
-                        alt="logo-light" 
-                        style={this.imgStyle}
-                        />
-                    </Container>
-                    <Container textAlign='center'>
-                        Online Education System
-                    </Container>
-                </FadeIn>
-            </div>
-        );
-    }
+const MainMenu = () => {
+    const imgStyle = {height: '100px'}
+    const logo = useSelector(state => state.app.logo)
+    return (  
+        <div>
+            <FadeIn>
+                <Container textAlign='center'>
+                    <img 
+                    src={require(`../images/logo/${logo}`)} 
+                    alt="logo-light" 
+                    style={imgStyle}
+                    />
+                </Container>
+                <Container textAlign='center'>
+                    Online Education System
+                </Container>
+            </FadeIn>
+        </div>
+    );
 }
 
-const mapStateToProps = state => ({
-    logo: state.app.logo
-})
-
-export default connect(mapStateToProps)(MainMenu);
+export default MainMenu;
