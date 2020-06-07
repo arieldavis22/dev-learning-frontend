@@ -159,3 +159,126 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Classroom);
+
+
+
+// const Classroom = (props) => {
+//     const [studentsInClass, setStudentsInClass] = useState([])
+//     const [lessonsInClass, setLessonsInClass] = useState([])
+//     const [gpa, setGpa] = useState('')
+
+//     const currentUser = useSelector(state => state.user.currentUser)
+//     const menu = useSelector(state => state.app.menu)
+
+//     const dispatch = useDispatch()
+//     const setLessonID = lessonId => dispatch({type: "SET_LESSON_ID", lessonId})
+
+//     const fetchAllStudents = () => {
+//         findStudents(props.id)
+//         .then(data => setStudentsInClass(data.users))
+//     }
+
+//     useEffect(() => {
+//         fetchAllStudents()
+
+//         findAllLessons(props.id)
+//         .then(data => setLessonsInClass(data))
+
+//         findStudentGpa(props.id, props.student_id)
+//         .then(data => setGpa(data))
+//     })
+
+//     const notifyStudentRemovedFromClassroom = () => {
+//         toast.success("Student Removed", {
+//         position: toast.POSITION.BOTTOM_RIGHT
+//         })
+//     }
+
+//     const handleRemoveFromClassroom = id => {
+//         removeStudent(props.id, id).then(() => {
+//             fetchAllStudents()
+//             notifyStudentRemovedFromClassroom()
+//         })
+//     }
+
+//     const handleSetLessonId = id => {
+//         setLessonID(id)
+//     }
+
+//     const renderStudents = () => {
+//         if(studentsInClass.data) {
+//             return studentsInClass.data.map(student => 
+//                 <Student 
+//                 key={student.attributes.id}
+//                 id={student.attributes.id}
+//                 first_name={student.attributes.first_name} 
+//                 last_name={student.attributes.last_name}
+//                 remove={true}
+//                 handleRemoveFromClass={handleRemoveFromClassroom}
+//                 classroom_id={props.id}/>
+//             )
+//         }
+//     }
+//     const borderStyle = { width: '1046px', height: '200px', border: '5px dashed gray', borderRadius: '4px' }
+
+//     const renderLessons = () => {
+//         return <Virtuoso 
+//             style={borderStyle} 
+//             totalCount={1} 
+//             item={() => <div>
+//             {lessonsInClass.map(lesson => {
+//             return <Lesson 
+//                 key={lesson.id} 
+//                 id={lesson.id}
+//                 title={lesson.title} 
+//                 report={true}
+//                 handleSetLessonId={handleSetLessonId}/>
+//         })}
+//         </div> } />
+//     }
+
+//     const { id, name, setInfo, student, setLessonState, render, handleLessonToClassroom, lesson, handleRemoveClassroom } = props
+//     return (  
+//         <div>
+//             <FadeIn>
+//         <h3>Classroom Name: {name}</h3>
+//         {currentUser.role === "Student" ? null : 
+        
+//         <div>
+//             <h4>Students</h4>
+//             {renderStudents()}
+//             <h4>Lessons</h4>
+//             {renderLessons()}
+//         </div>
+//         }
+
+//         {lesson ? <Button color={menu ? 'purple' : null} onClick={() => handleLessonToClassroom(id)}>Add</Button> : null}
+        
+
+
+//         {student ?  
+//         <div>
+//             <p>Grade: {gpa} </p>
+//             <NavLink to="/classroom-lesson" exact> {/* eslint-disable-next-line */}
+//                 <Button color={menu ? 'purple' : null} onClick={() => setLessonState(id)} color={menu ? 'purple' : null} icon='book' size='big' content='Check Lessons'/>
+//             </NavLink>
+//         </div>
+//         :
+//         null}
+
+//         {render ?
+//             <div>
+//             <NavLink to="/editclassroom" exact>
+//                 <Button color={menu ? 'purple' : null} onClick={() => setInfo(name, id)} icon='book' size='big' content='Edit Classroom/Add Student/Lesson'/>
+//             </NavLink>
+//             <Button color='red' onClick={() => handleRemoveClassroom(id)} content="Delete Classroom"/>
+//             <Divider />
+//         </div>
+//         :
+//         null}
+//             </FadeIn>
+//         </div>
+//     );
+//         }
+
+// export default Classroom;
