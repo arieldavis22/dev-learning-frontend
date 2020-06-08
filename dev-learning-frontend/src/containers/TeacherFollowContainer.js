@@ -81,9 +81,6 @@ class TeacherFollowContainer extends Component {
         }
     }
     render() { 
-        // console.log("TEAHER FOLLOW:", this.props.followedTeachers)
-        // console.log("Teacher NOT FOLLOWED:", this.props.allTeachers)
-        // console.log(this.props.currentUser)
         return (  
             <div>
                 {!this.props.currentUser ? this.props.history.push('/') : null}
@@ -109,7 +106,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setTeachers: teachers => dispatch({type: "SET_ALL_TEACHERS", teachers}),
     setFollowedTeachers: teachers => dispatch({type: "SET_FOLLOWED_TEACHERS", teachers}),
-    // addTeacher: teacher => dispatch({type: "ADD_FOLLOWED_TEACHER", teacher})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeacherFollowContainer);
