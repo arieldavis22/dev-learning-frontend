@@ -1,7 +1,5 @@
 # Dev Learning Front End
 
----
-
 The goal of Dev Learning is to provide users with a high school stuctured way to learn about programming. Split into Teacher based user experince and Student based user experince, Dev Learning stives to make a complete high school setting.
 
 ## Back End
