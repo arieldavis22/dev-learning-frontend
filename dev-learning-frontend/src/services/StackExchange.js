@@ -1,5 +1,7 @@
+import URL from './index'
+
 export function searchStackAPI(state) {
-    return fetch("http://localhost:3000/search-stack", {
+    return fetch(URL + "search-stack", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

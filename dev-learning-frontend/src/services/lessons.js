@@ -1,5 +1,7 @@
+import URL from './index'
+
 export function findLessons(id, id2) {
-    return fetch("http://localhost:3000/find-lessons", {
+    return fetch(URL + "find-lessons", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -14,7 +16,7 @@ export function findLessons(id, id2) {
 }
 
 export function findAllLessons(id) {
-    return fetch("http://localhost:3000/find-all-lessons", {
+    return fetch(URL + "find-all-lessons", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -30,7 +32,7 @@ export function findAllLessons(id) {
 //find-all-lessons
 
 export function newLesson(state) {
-    return fetch("http://localhost:3000/newlesson", {
+    return fetch(URL + "newlesson", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -42,7 +44,7 @@ export function newLesson(state) {
 }
 
 export function reportLesson(state) {
-    return fetch("http://localhost:3000/new-report", {
+    return fetch(URL + "new-report", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -54,7 +56,7 @@ export function reportLesson(state) {
 }
 
 export function allLessons(teacher_id) {
-    return fetch("http://localhost:3000/all-lessons", {
+    return fetch(URL + "all-lessons", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -68,7 +70,7 @@ export function allLessons(teacher_id) {
 }
 
 export function allLessonsForTeacher(teacher_id, classroom_id) {
-    return fetch("http://localhost:3000/all-lessons", {
+    return fetch(URL + "all-lessons", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -83,7 +85,7 @@ export function allLessonsForTeacher(teacher_id, classroom_id) {
 }
 
 export function allReportsForLesson(lesson_id) {
-    return fetch("http://localhost:3000/reports-for-lesson", {
+    return fetch(URL + "reports-for-lesson", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -97,7 +99,7 @@ export function allReportsForLesson(lesson_id) {
 }
 
 export function removeReportForLesson(report_id) {
-    return fetch("http://localhost:3000/delete-report", {
+    return fetch(URL + "delete-report", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"

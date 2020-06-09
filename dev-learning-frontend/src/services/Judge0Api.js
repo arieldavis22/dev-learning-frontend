@@ -1,5 +1,7 @@
+import URL from './index'
+
 export function checkCodeJudge(state) {
-    return fetch("http://localhost:3000/check-code", {
+    return fetch(URL + "check-code", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -11,7 +13,7 @@ export function checkCodeJudge(state) {
 }
 
 export function correctAnswerJudge(classroom_id, student_id, points) {
-    return fetch("http://localhost:3000/correct", {
+    return fetch(URL + "correct", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -27,7 +29,7 @@ export function correctAnswerJudge(classroom_id, student_id, points) {
 }
 
 export function wrongAnswerJudge(classroom_id, student_id, points) {
-    return fetch("http://localhost:3000/wrong", {
+    return fetch(URL + "wrong", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -43,7 +45,7 @@ export function wrongAnswerJudge(classroom_id, student_id, points) {
 }
 
 export function testCodeJudge(code, lesson_lang) {
-    return fetch("http://localhost:3000/test-code", {
+    return fetch(URL + "test-code", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

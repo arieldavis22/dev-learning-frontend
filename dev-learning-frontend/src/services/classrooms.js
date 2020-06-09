@@ -1,5 +1,7 @@
+import URL from './index'
+
 export function editClassroom(state) {
-    return fetch("http://localhost:3000/edit-classroom", {
+    return fetch(URL + "edit-classroom", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
@@ -11,7 +13,7 @@ export function editClassroom(state) {
 }
 
 export function newClassroom(state) {
-    return fetch("http://localhost:3000/new-classroom", {
+    return fetch(URL + "new-classroom", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -23,7 +25,7 @@ export function newClassroom(state) {
 }
 
 export function allClassooms(id) {
-    return fetch("http://localhost:3000/all-classrooms", {
+    return fetch(URL + "all-classrooms", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -37,7 +39,7 @@ export function allClassooms(id) {
 }
 
 export function addStudentToClassroom(classroom_id, student_id) {
-    return fetch("http://localhost:3000/add-student", {
+    return fetch(URL + "add-student", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -52,7 +54,7 @@ export function addStudentToClassroom(classroom_id, student_id) {
 }
 
 export function addLessonToClassroom(classroom_id, lesson_id) {
-    return fetch("http://localhost:3000/lesson-classroom", {
+    return fetch(URL + "lesson-classroom", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -67,7 +69,7 @@ export function addLessonToClassroom(classroom_id, lesson_id) {
 }
 
 export function removeClassroom(id) {
-    return fetch("http://localhost:3000/remove-classroom", {
+    return fetch(URL + "remove-classroom", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"

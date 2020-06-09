@@ -1,5 +1,7 @@
+import URL from './index'
+
 export function autologin() {
-    return fetch("http://localhost:3000/autologin", {
+    return fetch(URL + "autologin", {
         credentials: 'include'
     })
     .then(r => {
@@ -12,7 +14,7 @@ export function autologin() {
 }
 
 export function logout() {
-    return fetch("http://localhost:3000/logout", {
+    return fetch(URL + "logout", {
         method: "POST",
         credentials: 'include'
     })
@@ -20,7 +22,7 @@ export function logout() {
 }
 
 export function findStudents(id) {
-    return fetch("http://localhost:3000/find-students", {
+    return fetch(URL + "find-students", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -34,7 +36,7 @@ export function findStudents(id) {
 }
 
 export function findStudentGpa(classroom_id, student_id) {
-    return fetch("http://localhost:3000/find-student-gpa", {
+    return fetch(URL + "find-student-gpa", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -49,7 +51,7 @@ export function findStudentGpa(classroom_id, student_id) {
 }
 
 export function removeStudent(classroom_id, student_id) {
-    return fetch("http://localhost:3000/remove-student", {
+    return fetch(URL + "remove-student", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -64,7 +66,7 @@ export function removeStudent(classroom_id, student_id) {
 }
 
 export function login(state) {
-    return fetch("http://localhost:3000/login", {
+    return fetch(URL + "login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -82,7 +84,7 @@ export function login(state) {
 }
 
 export function signup(state) {
-    return fetch("http://localhost:3000/signup", {
+    return fetch(URL + "signup", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -100,7 +102,7 @@ export function signup(state) {
 }
 
 export function findStudentGPA(classroom_id, student_id) {
-    return fetch("http://localhost:3000/find-student-gpa", {
+    return fetch(URL + "find-student-gpa", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -115,7 +117,7 @@ export function findStudentGPA(classroom_id, student_id) {
 }
 
 export function allTeacherLessons(teacher_id) {
-    return fetch("http://localhost:3000/all-lessons", {
+    return fetch(URL + "all-lessons", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -129,7 +131,7 @@ export function allTeacherLessons(teacher_id) {
 }
 
 export function allStudentsInClassroom(classroom_id) {
-    return fetch("http://localhost:3000/all-students", {
+    return fetch(URL + "all-students", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -144,7 +146,7 @@ export function allStudentsInClassroom(classroom_id) {
 }
 
 export function editUser(state) {
-    return fetch("http://localhost:3000/edit-user", {
+    return fetch(URL + "edit-user", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
@@ -156,7 +158,7 @@ export function editUser(state) {
 }
 
 export function findAllStudentClassrooms(student_id) {
-    return fetch("http://localhost:3000/find-classrooms", {
+    return fetch(URL + "find-classrooms", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -170,7 +172,7 @@ export function findAllStudentClassrooms(student_id) {
 }
 
 export function findAllTeachers(teacher_id) {
-    return fetch("http://localhost:3000/all-teachers", {
+    return fetch(URL + "all-teachers", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -184,7 +186,7 @@ export function findAllTeachers(teacher_id) {
 }
 
 export function allTeacherFollowing(teacher_id) {
-    return fetch("http://localhost:3000/following", {
+    return fetch(URL + "following", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -198,7 +200,7 @@ export function allTeacherFollowing(teacher_id) {
 }
 
 export function followTeacher(follower, followee) {
-    return fetch("http://localhost:3000/follow", {
+    return fetch(URL + "follow", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
