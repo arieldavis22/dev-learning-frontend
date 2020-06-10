@@ -13,7 +13,8 @@ const Teacher = (props) => {
 
     useEffect(() => {
         allTeacherLessons(props.id)
-        .then(data => setLessons(data))
+        .then(setLessons)
+        // .then(data => setLessons(data))
     }, [props.id])
 
     const handleID = (id) => {
