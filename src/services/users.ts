@@ -60,7 +60,7 @@ export function removeStudent(classroom_id: string, student_id: string) {
   }).then((r) => r.json());
 }
 
-export function login(state) {
+export function login(state: { email: string; password: string }) {
   return fetch(URL + "login", {
     method: "POST",
     headers: {
@@ -77,7 +77,13 @@ export function login(state) {
   });
 }
 
-export function signup(state) {
+export function signup(state: {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  role: string;
+}) {
   return fetch(URL + "signup", {
     method: "POST",
     headers: {
@@ -134,7 +140,11 @@ export function allStudentsInClassroom(classroom_id: string) {
   }).then((r) => r.json());
 }
 
-export function editUser(state) {
+export function editUser(state: {
+  first_name: string;
+  last_name: string;
+  id: string;
+}) {
   return fetch(URL + "edit-user", {
     method: "PATCH",
     headers: {

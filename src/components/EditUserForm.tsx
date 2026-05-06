@@ -1,78 +1,101 @@
-import React, { Component } from 'react';
-import { editUser } from '../services/users'
-import { connect } from 'react-redux';
-import { Button, Form } from 'semantic-ui-react'
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { editUser } from "../services/users";
+import { Button, Form } from "semantic-ui-react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-class EditUserForm extends Component {
-    state = {  
-        first_name: '',
-        last_name: '',
-        id: this.props.currentUser.id
-    }
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { setUser } from "../store/userSlice";
 
-    componentDidMount() {
-        this.setState({
-            first_name: this.props.currentUser.first_name,
-            last_name: this.props.currentUser.last_name
-        })
-    }
-
-    notifyUserNameChange = () => {
-        toast.success("Name Changed", {
-        position: toast.POSITION.BOTTOM_RIGHT
-        })
-    }
-
-    handleOnChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-    handleOnSubmit = event => {
-        event.preventDefault()
-        editUser(this.state)
-        .then(data => {
-            this.props.setUser(data)
-            this.notifyUserNameChange()
-            this.props.history.push('/')
-        })
-    }
-
-    render() { 
-        console.log("EDIT USER STATE:", this.props)
-        return (  
-            <div>
-                <Form onSubmit={this.handleOnSubmit}>
-                    <Form.Input
-                        icon='user'
-                        iconPosition='left'
-                        type="text" 
-                        name="first_name" 
-                        placeholder={this.props.currentUser.first_name} 
-                        onChange={this.handleOnChange} />
-                    <Form.Input
-                        icon='user'
-                        iconPosition='left'
-                        type="text" 
-                        name="last_name" 
-                        placeholder={this.props.currentUser.last_name} 
-                        onChange={this.handleOnChange} />
-                    <Button color={this.props.menu ? 'purple' : null} type='submit'>Change Name</Button>
-                </Form>
-            </div>
-        );
-    }
+interface EditUserState {
+  first_name: string;
+  last_name: string;
+  id: string;
 }
 
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser,
-    menu: state.app.menu
-})
+const EditUserForm = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-const mapDispatchToProps = dispatch => ({
-    setUser: user => dispatch({type: "SET_USER", user})
-})
+  const currentUser = useAppSelector((state) => state.user.currentUser);
+  const menu = useAppSelector((state) => state.app.menu);
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditUserForm);
+  const [formData, setFormData] = useState<EditUserState>({
+    first_name: "",
+    last_name: "",
+    id: currentUser?.id || "",
+  });
+
+  useEffect(() => {
+    if (currentUser) {
+      setFormData({
+        first_name: currentUser.first_name || "",
+        last_name: currentUser.last_name || "",
+        id: currentUser.id,
+      });
+    }
+  }, [currentUser]);
+
+  const notifyUserNameChange = (): void => {
+    toast.success("Name Changed", {
+      position: "bottom-right",
+    });
+  };
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = event.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+
+    editUser(formData).then((data) => {
+      dispatch(setUser(data));
+      notifyUserNameChange();
+      navigate("/");
+    });
+  };
+
+  if (!currentUser) {
+    return null;
+  }
+
+  console.log("EDIT USER STATE:", formData);
+
+  return (
+    <div>
+      <Form onSubmit={handleOnSubmit}>
+        <Form.Input
+          icon="user"
+          iconPosition="left"
+          type="text"
+          name="first_name"
+          placeholder={currentUser.first_name}
+          value={formData.first_name}
+          onChange={handleOnChange}
+        />
+
+        <Form.Input
+          icon="user"
+          iconPosition="left"
+          type="text"
+          name="last_name"
+          placeholder={currentUser.last_name}
+          value={formData.last_name}
+          onChange={handleOnChange}
+        />
+
+        <Button color={menu ? "purple" : undefined} type="submit">
+          Change Name
+        </Button>
+      </Form>
+    </div>
+  );
+};
+
+export default EditUserForm;
