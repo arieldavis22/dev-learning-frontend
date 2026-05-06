@@ -1,16 +1,12 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { editClassroom } from "../services/classrooms.ts";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { editClassroom } from "../services/classrooms";
 import { Button, Form } from "semantic-ui-react";
 import { useAppSelector } from "../store/hooks";
+import type { ClassroomEditState } from "../types/classroom.types";
 
 interface ClassroomEditFormProps {
   classroomID: string;
   classroomName: string;
-}
-
-interface ClassroomEditState {
-  name: string;
-  classroom_id: string;
 }
 
 const ClassroomEditForm = ({

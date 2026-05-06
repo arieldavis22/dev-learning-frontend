@@ -4,9 +4,10 @@ import { Button, Form } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { addClassroom } from "../store/classroomSlice";
+import type { UserState } from "../types/user.types";
 
 interface ClassroomFormProps {
-  currentUser: any;
+  currentUser: UserState["currentUser"];
   fetchAllClassrooms: () => Promise<void>;
 }
 
