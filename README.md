@@ -1,10 +1,10 @@
 # Dev Learning Front End
 
-Dev Learning is a classroom-style programming education platform designed to support both teacher-led instruction and student learning. The application provides separate experiences for teachers and students, allowing users to manage classrooms, complete lessons, practice coding, track progress, and review reports.
+Dev Learning is a classroom-style programming education platform designed to support both teacher instructions and student learning. The app provides separate experiences for teachers and students, allowing users to manage classrooms, complete lessons, practice coding, track progress, and review reports.
 
 ## Project Overview
 
-This repository contains the front-end application for Dev Learning. The app is built with React and Redux and connects to a separate backend API for authentication, classroom management, lessons, reports, code checking, and external programming question search.
+This repository is the front-end application for Dev Learning. It's built with React and Redux and connects to a separate backend API for authentication, classroom management, lessons, reports, code checking, and external programming question searching.
 
 ## Features
 
@@ -12,9 +12,8 @@ This repository contains the front-end application for Dev Learning. The app is 
 - User authentication, signup, logout, and profile editing
 - Classroom creation, editing, and management
 - Lesson creation and classroom lesson assignment
-- Student lesson completion flow
-- Code checking and code testing workflows
-- Lesson reports and teacher follow-up tools
+- Student lesson completion
+- Code checking and code testing
 - Stack Exchange question search integration
 - Dark mode toggle
 - Pomodoro study timer
