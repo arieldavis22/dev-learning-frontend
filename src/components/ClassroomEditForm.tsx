@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { editClassroom } from "../services/classrooms";
+import { editClassroom } from "../services/classrooms.ts";
 import { Button, Form } from "semantic-ui-react";
 import { useAppSelector } from "../store/hooks";
 

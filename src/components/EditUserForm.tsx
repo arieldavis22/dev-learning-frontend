@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { editUser } from "../services/users";
+import { editUser } from "../services/users.ts";
 import { Button, Form } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import type { UserState } from "../types/user.types";
 
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setUser } from "../store/userSlice";
-
-interface EditUserState {
-  first_name: string;
-  last_name: string;
-  id: string;
-}
 
 const EditUserForm = () => {
   const dispatch = useAppDispatch();
@@ -20,18 +15,18 @@ const EditUserForm = () => {
   const currentUser = useAppSelector((state) => state.user.currentUser);
   const menu = useAppSelector((state) => state.app.menu);
 
-  const [formData, setFormData] = useState<EditUserState>({
-    first_name: "",
-    last_name: "",
-    id: currentUser?.id || "",
+  const [formData, setFormData] = useState<UserState>({
+    currentUser: null,
   });
 
   useEffect(() => {
     if (currentUser) {
       setFormData({
-        first_name: currentUser.first_name || "",
-        last_name: currentUser.last_name || "",
-        id: currentUser.id,
+        currentUser: {
+          id: currentUser.id,
+          first_name: currentUser.first_name || "",
+          last_name: currentUser.last_name || "",
+        },
       });
     }
   }, [currentUser]);
@@ -76,7 +71,7 @@ const EditUserForm = () => {
           type="text"
           name="first_name"
           placeholder={currentUser.first_name}
-          value={formData.first_name}
+          value={formData.currentUser?.first_name}
           onChange={handleOnChange}
         />
 
@@ -86,7 +81,7 @@ const EditUserForm = () => {
           type="text"
           name="last_name"
           placeholder={currentUser.last_name}
-          value={formData.last_name}
+          value={formData.currentUser?.last_name}
           onChange={handleOnChange}
         />
 

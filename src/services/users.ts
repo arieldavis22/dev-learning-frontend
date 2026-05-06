@@ -1,4 +1,5 @@
 import URL from "./index.ts";
+import type { UserState } from "../types/user.types";
 
 export function autologin() {
   return fetch(URL + "autologin", {
@@ -140,11 +141,7 @@ export function allStudentsInClassroom(classroom_id: string) {
   }).then((r) => r.json());
 }
 
-export function editUser(state: {
-  first_name: string;
-  last_name: string;
-  id: string;
-}) {
+export function editUser(state: UserState) {
   return fetch(URL + "edit-user", {
     method: "PATCH",
     headers: {
