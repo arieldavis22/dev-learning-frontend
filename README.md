@@ -1,15 +1,57 @@
 # Dev Learning Front End
 
-The goal of Dev Learning is to provide users with a high school stuctured way to learn about programming. Split into Teacher based user experince and Student based user experince, Dev Learning stives to make a complete high school setting.
+Dev Learning is a classroom-style programming education platform designed to support both teacher-led instruction and student learning. The application provides separate experiences for teachers and students, allowing users to manage classrooms, complete lessons, practice coding, track progress, and review reports.
 
-## Back End
+## Project Overview
 
-This is the front end repo for Dev Learning, in order to reach the back end repo, please use the following link: [Dev Learning Back End](https://github.com/arieldavis22/dev-learning-backend)
+This repository contains the front-end application for Dev Learning. The app is built with React and Redux and connects to a separate backend API for authentication, classroom management, lessons, reports, code checking, and external programming question search.
 
-## Live
+## Features
 
-Dev Learning is live here: (WIP)
+- Teacher and student user experiences
+- User authentication, signup, logout, and profile editing
+- Classroom creation, editing, and management
+- Lesson creation and classroom lesson assignment
+- Student lesson completion flow
+- Code checking and code testing workflows
+- Lesson reports and teacher follow-up tools
+- Stack Exchange question search integration
+- Dark mode toggle
+- Pomodoro study timer
+- Toast notifications for user feedback
 
-## Demo
+## Tech Stack
 
-A Demo of Dev Learning can be watched here: (WIP)
+- React
+- Redux
+- React Router
+- Semantic UI React
+- React Helmet
+- React Toastify
+- React Virtuoso
+- React Compound Timer
+- JavaScript
+- CSS
+
+## Backend Repository
+
+This is the front-end repository for Dev Learning. The backend API can be found here:
+
+[Dev Learning Back End](https://github.com/arieldavis22/dev-learning-backend)
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- Node.js
+- npm or yarn
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/arieldavis22/dev-learning-frontend.git
+```
